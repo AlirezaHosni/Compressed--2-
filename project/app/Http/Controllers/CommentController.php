@@ -12,7 +12,7 @@ class CommentController extends Controller
 
     public function index()
     {
-        $comments=Comment::all();
+        $comments=Comment::orderBy('id', 'desc')->paginate(15);
         return view('backEnd.comment.index')->with(compact('comments'));
     }
 
@@ -29,9 +29,10 @@ class CommentController extends Controller
         $data->save();
         return redirect()->route('comment.index');
     }
-    
+
     public function storeComment(Request $request, Article $article)
     {
+
         $data=new Comment();
         $data->fullName=$request->fullName;
         $data->email=$request->email;
@@ -54,7 +55,7 @@ class CommentController extends Controller
 
     public function update(Request $request,$comment)
     {
-       dd($comment);
+        dd($comment);
     }
 
 

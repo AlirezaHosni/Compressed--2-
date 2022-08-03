@@ -66,49 +66,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                        <!-- left -->
-                            {{--                                <div class="col-12 col-sm-6 grid-margin">--}}
-                            {{--                                    <div class="analyse-item-content bg-white border">--}}
-                            {{--                                        <h2 class="font-weight-bold analyse-item-title">تحلیل قیمت نیوزلند</h2>--}}
-                            {{--                                        <span class="font-weight-bold analyse-item-date ">21 ژوئن 2021</span>--}}
-                            {{--                                        <p class="analyse-item-text text-truncate">--}}
-                            {{--                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ--}}
-                            {{--                                        </p>--}}
-                            {{--                                        <div class="d-flex justify-content-between align-item-center">--}}
-                            {{--                                            <span class="analyse-item-time">8 دقیقه پیش</span>--}}
-                            {{--                                            <a href="{{ url('#') }}" class="analyse-item-more"><img src="{{ asset('assets/imgs/icon/icon.png') }}" class="img-fluid " alt=""></a>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
-
-                        <!-- right -->
-                            {{--                                <div class="col-12 col-sm-6 grid-margin">--}}
-                            {{--                                    <div class="analyse-item-content bg-white border">--}}
-                            {{--                                        <h2 class="font-weight-bold analyse-item-title">تحلیل قیمت نیوزلند</h2>--}}
-                            {{--                                        <span class="font-weight-bold analyse-item-date ">21 ژوئن 2021</span>--}}
-                            {{--                                        <p class="analyse-item-text text-truncate">--}}
-                            {{--                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ--}}
-                            {{--                                        </p>--}}
-                            {{--                                        <div class="d-flex justify-content-between align-item-center">--}}
-                            {{--                                            <span class="analyse-item-time">8 دقیقه پیش</span>--}}
-                            {{--                                            <a href="{{ url('#') }}" class="analyse-item-more"><img src="{{ asset('assets/imgs/icon/icon.png') }}" class="img-fluid " alt=""></a>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
-                        <!-- left -->
-                            {{--                                <div class="col-12 col-sm-6 analys-item-last grid-margin">--}}
-                            {{--                                    <div class="analyse-item-content bg-white border">--}}
-                            {{--                                        <h2 class="font-weight-bold analyse-item-title">تحلیل قیمت نیوزلند</h2>--}}
-                            {{--                                        <span class="font-weight-bold analyse-item-date ">21 ژوئن 2021</span>--}}
-                            {{--                                        <p class="analyse-item-text text-truncate">--}}
-                            {{--                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ--}}
-                            {{--                                        </p>--}}
-                            {{--                                        <div class="d-flex justify-content-between align-item-center">--}}
-                            {{--                                            <span class="analyse-item-time">8 دقیقه پیش</span>--}}
-                            {{--                                            <a href="{{ url('#') }}" class="analyse-item-more"><img src="{{ asset('assets/imgs/icon/icon.png') }}" class="img-fluid " alt=""></a>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
                         </div>
 
                         <!-- 3 -->
@@ -303,7 +260,7 @@
                             <div class="col-12 news-items news-items-main p-5 bg-white">
                                 <div class="row clearfix news-items-content-box flex-wrap" id="news-items-content-box">
                                     @foreach($latestArticles as $latestArticle)
-                                        <div class="card card-sm col-sm-4 force-count col-12 b-none">
+                                        <div class="card card-sm col-sm-4 force-count col-12 b-none" data-id="{{ $latestArticle->id }}">
                                             <img class="card-img-top" src="{{ asset($latestArticle->image) }}" alt="Card image cap">
                                             <div class="card-body">
                                                 <a class="text-dark" href="{{ route('singleArticle', $latestArticle->url) }}" ><h5 class="card-title fs-1rem card-title-sm font-weight-bold">{{ $latestArticle->title }}</h5></a>
@@ -349,22 +306,41 @@
             //alert("hello");
             $(".navbar").toggle(1000);
         });
-        var itemElm = document.querySelector('#news-items-content-box');
+        // var itemElm = document.querySelector('#news-items-content-box');
+        // var latestId = itemElm.children[itemElm.children.length - 1].getAttribute("data-id");
+        var newItem = null
         function createPost(){
+            var itemElm = document.querySelector('#news-items-content-box');
+            var latestId = itemElm.children[itemElm.children.length - 1].getAttribute("data-id");
+            console.log(itemElm.children.length);
+
+            $.ajax({
+                url : "/latest-article/" + latestId,
+                type : "GET",
+                async: false,
+                success : function(response){
+                    newItem = response
+                    // console.log(newItem)
+                }
+            });
+            console.log(newItem)
+
             $lefd = $(".force-count").length
             if($lefd <= 15){
                 var item = document.createElement('div');
                 item.className += 'card ';
-                item.className += 'col-4 ';
+                item.className += 'col-sm-4 ';
                 item.className += 'b-none ';
                 item.className += "force-count ";
-                item.className += 'card-sm';
+                item.className += 'card-sm ';
+                item.className += 'col-12 ';
+                item.setAttribute('data-id' , newItem["id"]);
+
 
                 //item.style.width = '100%';
-
                 var img = document.createElement('img');
                 img.className = 'card-img-top ';
-                img.setAttribute('src' , '{{ asset('assets/imgs/pic/Layer 2.png') }}');
+                img.setAttribute('src' , 'http://proskills.shop/' + newItem['image']);
 
                 var div = document.createElement('div');
 
@@ -376,6 +352,10 @@
                 h2.className += 'font-weight-bold ';
                 h2.className += 'card-title-sm';
 
+                var a = document.createElement('a');
+                a.className += 'text-dark';
+                a.setAttribute('href' , '/' + newItem["url"]);
+
                 var p = document.createElement('p');
                 p.className += 'card-text ';
                 p.className += 'analys-card-text ';
@@ -383,11 +363,12 @@
                 var span = document.createElement('span');
                 span.className += 'analyse-card-time ';
 
-                h2.innerHTML = ' ساختگی با تولید';
-                p.innerHTML = 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعتاپ'
-                span.innerHTML = '8 دقیقه پیش';
+                h2.innerHTML = newItem['title'];
+                p.innerHTML = newItem['summary']
+                span.innerHTML = newItem['publishDateAgo'];
 
-                div.appendChild(h2);
+                a.appendChild(h2);
+                div.appendChild(a);
                 div.appendChild(p);
                 div.appendChild(span);
 

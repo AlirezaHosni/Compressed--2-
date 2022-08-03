@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Magazine;
+use App\Menu;
 use Illuminate\Http\Request;
 
 class MagazineController extends Controller
@@ -24,15 +25,15 @@ class MagazineController extends Controller
     {
 
         $contentTitle=implode(',',$request->contentTitle);
-       $magazine=new Magazine();
-       $file=$request->file('imageFile');
-       $imageFile=$file->getClientOriginalName();
-       $pathImage="upload/magazine/imageFile/".$imageFile ;
-       if (file_exists($pathImage)){
-           $imageFile=bin2hex(random_bytes(5)).$imageFile;
-       }
-       $file->move("upload/magazine/imageFile/",$imageFile);
-       $magazine->imageFile=$imageFile;
+        $magazine=new Magazine();
+        $file=$request->file('imageFile');
+        $imageFile=$file->getClientOriginalName();
+        $pathImage="upload/magazine/imageFile/".$imageFile ;
+        if (file_exists($pathImage)){
+            $imageFile=bin2hex(random_bytes(5)).$imageFile;
+        }
+        $file->move("upload/magazine/imageFile/",$imageFile);
+        $magazine->imageFile=$imageFile;
 
 
 
@@ -57,23 +58,29 @@ class MagazineController extends Controller
     {
         //
     }
-    
+
     public function showMagazines()
     {
         $magazines = Magazine::orderBy('publishDate', 'desc')->get();
         return view('frontEnd.magazine.index', compact('magazines'));
     }
-        
+
     public function downloadMagazine(Magazine $magazine)
     {
-        return "downloading magazine with title : $magazine->title";
+        if(file_exists($magazine->file)){
+            $headers = array(
+                'Content-Type: application/pdf',);
+
+            return response()->download($magazine->document, $magazine->title . '.pdf', $headers);
+        }
+        return redirect()->route('showMagazines');
     }
 
 
     public function edit($magazine)
     {
-         $magazine=Magazine::findOrFail($magazine);
-         return view('backEnd.magazine.edit')->with(compact('magazine'));
+        $magazine=Magazine::findOrFail($magazine);
+        return view('backEnd.magazine.edit')->with(compact('magazine'));
     }
 
     public function update(Request $request,$magazine)

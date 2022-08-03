@@ -27,10 +27,18 @@ class ArticleController extends Controller
         }
         return view('backEnd.article.index')->with(compact('article'));
     }
-    
+
     public function listArticles()
     {
         // to do
+    }
+
+    public function latestArticle($article)
+    {
+        $article = Article::where('id', '<', $article)->get()->last();
+        $data = $article->toArray();
+        $data['publishDateAgo'] = jalaliAgo($article->publishDate);
+        return response()->json($data);
     }
 
     public function create()
@@ -44,7 +52,7 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-       
+
        $article=new Article();
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
@@ -81,12 +89,12 @@ class ArticleController extends Controller
        return redirect()->route('article.index');
 
     }
-    
+
     public function singleArticle( $article )
     {
         $advertise = Advertise::first();
-        
-        $papularArticles = Article::limit(8)->get(); 
+
+        $papularArticles = Article::limit(8)->get();
         $article=Article::where('url', $article)->first();
         $data=ArticleGroup::where('id','=',$article->article_Group_id)->get();
         $comments = $article->comments->where('active', 1);

@@ -11,7 +11,7 @@
                     class="img-fluid img-famous d-inline-block"
                     alt=""
                 />
-                <a href="{{ route('nordFx') }}" class="btn-famous d-inline-block"
+                <a href="{{ url('https://account.nordfxfarsi.com/account/register/?id=1613135&lang=ir') }}" class="btn-famous d-inline-block"
                 >ثبت نام کنید</a
                 >
             </div>
@@ -51,7 +51,7 @@
                     class="img-fluid w-5 img-famous d-inline-block"
                     alt=""
                 />
-                <a href="{{ route('bkFx') }}" class="btn-famous d-inline-block w-50"
+                <a href="{{ url('https://secure.bkfx.io/links/go/760') }}" class="btn-famous d-inline-block w-50"
                 >ثبت نام کنید</a
                 >
             </div>

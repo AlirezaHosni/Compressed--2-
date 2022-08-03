@@ -108,7 +108,10 @@ Route::prefix('/news')->group(function(){
 Route::namespace('front')->get('/stream/{articleGroup?}', "front\StreamController@index")->name('stream.index');
 
 // show magazines
-Route::get('/magazines', 'MagazineController@showMagazines')->name('showMagazines');
+Route::get('/magazine', 'MagazineController@showMagazines')->name('showMagazines');
+
+// get latest article
+Route::get('/latest-article/{article}', 'ArticleController@latestArticle')->name('latestArticle');
 
 // download magazine
 Route::get('/download-magazine/{magazine}', 'MagazineController@downloadMagazine')->name('downloadMagazine');
@@ -192,14 +195,14 @@ Route::prefix('/category')->group(function (){
             Route::get('/USDT', 'front\ArticleMenuController@index')->name('Crypto.analysis.USDT.index');
             Route::get('/banks', 'front\ArticleMenuController@index')->name('Crypto.analysis.banks.index');
         });
-        });
+    });
     Route::prefix('/Market_Outlook')->group(function () {
         Route::get('', 'front\ArticleMenuController@index')->name('Market_Outlook.index');
         Route::get('/Daily', 'front\ArticleMenuController@index')->name('Daily.index');
         Route::get('/Weekly', 'front\ArticleMenuController@index')->name('Weekly.index');
         Route::get('/Monthly', 'front\ArticleMenuController@index')->name('Monthly.index');
     });
-    });
+});
 Route::get('/EconomicCalendar', 'front\ArticleMenuController@index')->name('EconomicCalendar.index');
 Route::get('/alltahlil', 'front\ArticleMenuController@index')->name('alltahlil.index');
 Route::get('https://login.ifcmtrade.com/fa/register/ib/6034', 'front\ArticleMenuController@index')->name('IFCMarkets.index');
@@ -260,33 +263,7 @@ Route::get('/ironFx',function(){
 
 // footer
 Route::get('/terms',function(){
-    
-//     $filename = "Export-2022-7-29-17-15-27.json";
 
-// // Read the JSON file in PHP
-// $data = file_get_contents(asset($filename));
-
-// // Convert the JSON String into PHP Array
-// $array = json_decode($data, true);
-// // dd($array);
-    
-//     $articles = App\User::all();
-//     // dd($articles);
-//   foreach($articles as $article){
-//       if(str_starts_with($article->url, '/category')){
-//       dump($article->url);
-//       $length = strlen('category/');
-//     // if($article->image){
-//      $article->url = substr($article->url, $length);
-//      dd($article->url);
-//      $article->save();
-//     // }
-//       }
-     
-//  }
-$token = 'kk';
-return view('auth.passwords.reset', compact('token'));
-    
 })->name('terms');
 
 Route::get('/faq',function(){

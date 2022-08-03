@@ -1,4 +1,4 @@
-@extends("master")
+@extends('frontEnd.layouts.master')
 @section('title')
     Single Skills
 @endsection
@@ -31,7 +31,6 @@
                 <div class="col-9 p-4 ">
                     <div class="row bg-white">
                         <div class="col-12 py-3 px-5">
-                            <!--@dd($article)-->
                             <a href="{{ url($article->article_group->url) }}" class="bank">{{ $article->article_group->title }}</a>
                         </div>
                         <div class="col-12 py-3 px-5">
@@ -168,7 +167,7 @@
 
 
                 </span>
-                            <span class="d-block resource-box">
+                            <span class="d-block">
                     برچسب ها
                             @if(!is_null($article->tag))
                                 @foreach(explode(",", $article->tag) as $singleTag)
