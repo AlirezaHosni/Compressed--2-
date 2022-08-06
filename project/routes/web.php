@@ -204,11 +204,14 @@ Route::prefix('/category')->group(function (){
     });
 });
 Route::get('/EconomicCalendar', 'front\ArticleMenuController@index')->name('EconomicCalendar.index');
-Route::get('/alltahlil', 'front\ArticleMenuController@index')->name('alltahlil.index');
+Route::get('/alltahlil', 'front\ArticleMenuController@allTahlil')->name('alltahlil.index');
+Route::get('/alltahlil/{analysis}', 'front\ArticleMenuController@allTahlilShow')->name('alltahlil.show');
 Route::get('https://login.ifcmtrade.com/fa/register/ib/6034', 'front\ArticleMenuController@index')->name('IFCMarkets.index');
 Route::get('/164', 'front\ArticleMenuController@index')->name('HowToSendAnalysis.index');
 Route::get('/live-news-ukraine', 'front\ArticleMenuController@index')->name('ukraineWar.index');
 Route::get('/specialreport', 'front\ArticleMenuController@index')->name('specialReport.index');
+Route::get('/authors', 'front\ArticleMenuController@authors')->name('authors.index');
+Route::get('/authors/{author}', 'front\ArticleMenuController@authorsShow')->name('authors.show');
 Route::get('https://myaccount.opofinance.com/links/go/74', 'front\ArticleMenuController@index')->name('OppoFinance.index');
 
 Route::get('https://www.instagram.com/proskillsnews/',function(){

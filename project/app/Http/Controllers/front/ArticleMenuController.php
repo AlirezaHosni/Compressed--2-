@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\front;
 
+use App\Analysis;
 use App\Article;
 use App\Menu;
 use App\ArticleGroup;
@@ -37,5 +38,28 @@ class ArticleMenuController extends Controller
         // dd(ArticleGroup::where('title', 'متاورس')->get());
 
         return view('frontEnd.archive.index', compact('articles', 'title'));
+    }
+
+    public function allTahlil()
+    {
+        $authors = User::permission('تحلیلگر')->take(5);
+        $analysis = Analysis::paginate(7);
+        return view('frontEnd.analysis.index', compact('authors', 'analysis'));
+    }
+
+    public function allTahlilShow(Analysis $analysis)
+    {
+        return view('frontEnd.analysis.index');
+    }
+
+    public function authors()
+    {
+        $authors = User::permission('تحلیلگر')->limit(20)->get();
+        return view('frontEnd.author.index', compact('authors'));
+    }
+
+    public function authorsShow(User $author)
+    {
+        return "this page if for $author->name author";
     }
 }
