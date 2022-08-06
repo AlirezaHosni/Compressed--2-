@@ -32,13 +32,13 @@
             <div class="divider"></div>
             <div class="row my-5">
                 @foreach($articles as $article)
-              <div class="col-6">
+              <div class="col-6 mb-3">
                 <div class="row">
                   <div class="col-6 content-box">
                     <img src="{{ asset($article->image) }}" class="img-fluid metavers-img-box" alt="">
                   </div>
                   <div class="col-6 content-title-box d-flex align-items-center justify-content-center">
-                    <a href="{{ route('singleArticle', $article->url) }}">
+                    <a class="text-dark" href="{{ route('singleArticle', $article->url) }}">
                       <h2>
                       {{ $article->title }}
                       </h2>

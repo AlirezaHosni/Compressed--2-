@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $guarded=['id'];
-    public function article(){
+
+    public function article()
+    {
         return $this->belongsTo(Article::class);
+    }
+
+    public function commentable()
+    {
+        return $this->morphTo();
     }
 }

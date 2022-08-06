@@ -37,7 +37,8 @@ class CommentController extends Controller
         $data->fullName=$request->fullName;
         $data->email=$request->email;
         $data->comment=$request->Text;
-        $data->article_id=$article->id;
+        $data->commentable_id=$article->id;
+        $data->commentable_type=Article::class;
         $data->save();
         return redirect()->route('singleArticle', $article->url);
     }

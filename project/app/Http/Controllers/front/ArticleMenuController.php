@@ -40,9 +40,18 @@ class ArticleMenuController extends Controller
         return view('frontEnd.archive.index', compact('articles', 'title'));
     }
 
+    public function latest()
+    {
+        $articles = Article::orderBy('publishDate', 'desc')->limit(22)->get();
+
+        $title = 'جدیدترین‌ها';
+
+        return view('frontEnd.archive.index', compact('articles', 'title'));
+    }
+
     public function allTahlil()
     {
-        $authors = User::permission('تحلیلگر')->take(5);
+        $authors = User::permission('تحلیلگر')->limit(5)->get();
         $analysis = Analysis::paginate(7);
         return view('frontEnd.analysis.index', compact('authors', 'analysis'));
     }

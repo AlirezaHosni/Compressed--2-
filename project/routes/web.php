@@ -266,6 +266,38 @@ Route::get('/ironFx',function(){
 
 // footer
 Route::get('/terms',function(){
+    $filename = "Export-2022-7-29-17-15-27.json";
+
+// Read the JSON file in PHP
+    $data = file_get_contents(asset($filename));
+
+// Convert the JSON String into PHP Array
+    $array = json_decode($data, true);
+    $analysisJson = $array['UserAnalysis'];
+//    dd($analysisJson);
+
+    $analysis = \App\Analysis::all();
+    foreach ($analysis as $singleAnalysis)
+    {
+//        $singleAnalysis->analysis_type_id=100;
+//        $singleAnalysis->save();
+//        $singleAnalysis->active = 1;
+//        $singleAnalysis->url = $singleAnalysis->id;
+        foreach ($analysisJson as $singleAnalysisJson) {
+            foreach ($array['AnalysisTypes'] as $analysisType) {
+                if ($analysisType['Id'] == $singleAnalysisJson['AnalysisType_ID']){
+//                    dump($singleAnalysisJson['AnalysisType_ID']);
+                    $singleAnalysis->analysis_type_id = (int)$singleAnalysisJson['AnalysisType_ID'];
+                    $singleAnalysis->save();
+                }
+            }
+        }
+        foreach ($analysisJson as $singleAnalysisJson){
+            if ($singleAnalysisJson['Id'] == $singleAnalysis->id){
+                $singleAnalysis->visit_number = $singleAnalysisJson['VisitNumber'];
+            }
+        }
+    }
 
 })->name('terms');
 
@@ -309,6 +341,7 @@ Route::get('/jobs-opportunities',function(){
 
 
 
+Route::get('/latest-articles', 'front\ArticleMenuController@latest')->name('article.latest');
 
 // show single article
 Route::get('/{article}', 'ArticleController@singleArticle')->name('singleArticle')->where('article', '\d+');

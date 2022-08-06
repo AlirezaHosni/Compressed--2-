@@ -93,7 +93,7 @@
                                 <a class="text-dark" href="{{ route('singleArticle', $financeArticle->url) }}">
                                     <div class="economic-item border-bottom">
                                         <p class="economic-item-text text-justify line-height-2">
-                                            {{ $financeArticle->summary }}
+                                            {{ $financeArticle->title }}
                                         </p>
                                         <span class="economic-item-time d-block">{{ jalaliAgo($financeArticle->publishDate) }}</span>
                                     </div>
@@ -110,9 +110,8 @@
                                 <figure class="analyse-active econimic-active col-12 bg-white rounded p-1 d-flex w-100 justify-content-between mb-0 flex-column">
                                     <img src="{{ asset($financeArticles->first()->image) }}" class="img-fluid" alt="">
                                     <a class="text-dark" href="{{ route('singleArticle', $financeArticles->first()->url) }}"><h2 class="title-2 econimic-active-title">{{ $financeArticles->first()->title }} - {{ Carbon\Carbon::parse($financeArticles->first()->publishDate)->format('Y M d') }}</h2></a>
-                                    <figcaption class="fs-8rem economic-p">
-                                        {{ $financeArticles->first()->summary }}
-                                    </figcaption>
+{{--                                    <figcaption class="fs-8rem economic-p">--}}
+{{--                                    </figcaption>--}}
                                 </figure>
                             </div>
                             <div class="col-sm-6 col-12">
@@ -122,7 +121,7 @@
                                             @if($financeArticle->id != $financeArticles->first()->id)
                                                 <div class="economic-item border-bottom">
                                                     <p class="economic-item-text text-justify line-height-2">
-                                                        {{ $financeArticle->summary }}
+                                                        {{ $financeArticle->title }}
                                                     </p>
                                                     <span class="economic-item-time d-block">{{ jalaliAgo($financeArticle->publishDate) }}</span>
                                                 </div>
@@ -141,7 +140,7 @@
                                 <a class="text-dark" href="{{ route('singleArticle', $financeArticle->url) }}">
                                     <div class="economic-item border-bottom">
                                         <p class="economic-item-text text-justify line-height-2">
-                                            {{ $financeArticle->summary }}
+                                            {{ $financeArticle->title }}
                                         </p>
                                         <span class="economic-item-time d-block">{{ jalaliAgo($financeArticle->publishDate) }}</span>
                                     </div>
@@ -214,7 +213,7 @@
                             @endforeach
                             <!-- more news -->
                                 <div class="btn-more-news">
-                                    <a href="{{ url('#') }}">مشاهده بیشتر</a>
+                                    <a href="{{ route('article.latest') }}">مشاهده بیشتر</a>
                                 </div>
                             </div>
                         </div>

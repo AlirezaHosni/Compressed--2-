@@ -34,9 +34,9 @@
                     <div class="rounded align-items-center box-shadow py-3">
                             <a href="{{ route('authors.index') }}">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 text-md-start text-center">
+                                    <div class="col-lg-6 col-md-6 text-md-start text-center d-flex flex-row">
                                         @foreach($authors as $author)
-                                            <a href="{{ route('authors.show', $author->id) }}"><img src="{{ asset($author->image) }}" class="avatar avatar-small rounded-circle mx-auto " alt=""></a>
+                                            <img src="{{ asset($author->image) }}" class="avatar avatar-small rounded-circle mr-2 " alt="">
                                         @endforeach
                                     </div><!--end col-->
                                     <div class="col-lg-6 col-md-6 d-flex">

@@ -19,8 +19,13 @@ class Analysis extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function analysis_type()
+    {
+        return $this->belongsTo(AnalysisType::class);
+    }
+
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'article_id');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

@@ -26,7 +26,7 @@ $success = 0;
 //$articleGroups = $array['ArticleGroupArticles'];
 //$tags = $array['Tag'];
 //$tagArticles = $array['TagArticles'];
-foreach($array['MenuLinks'] as $items){
+foreach($array['AnalysisTypes'] as $items){
 
 //   $data =   new App\Menu;
 //   dd(array_keys($items), $items);
@@ -155,7 +155,9 @@ foreach($array['MenuLinks'] as $items){
     App\Menu::create($create);
 }
 
- $articles = App\Article::all();
+foreach($array['AnalysisTypes'] as $items) {
+    $articles = App\AnalysisType::create(['title' => $items['Title']]);
+}
  foreach($articles as $article) {
      $create['tag'] = '';
      // dump($value);
@@ -192,4 +194,37 @@ foreach($array['MenuLinks'] as $items){
      }
 
 
+
+     $filename = "Export-2022-7-29-17-15-27.json";
+
+// Read the JSON file in PHP
+     $data = file_get_contents(asset($filename));
+
+// Convert the JSON String into PHP Array
+     $array = json_decode($data, true);
+     $analysisJson = $array['UserAnalysis'];
+//    dd($analysisJson);
+
+     $analysis = \App\Analysis::all();
+     foreach ($analysis as $singleAnalysis)
+     {
+//        $singleAnalysis->analysis_type_id=100;
+//        $singleAnalysis->save();
+//        $singleAnalysis->active = 1;
+//        $singleAnalysis->url = $singleAnalysis->id;
+         foreach ($analysisJson as $singleAnalysisJson) {
+             foreach ($array['AnalysisTypes'] as $analysisType) {
+                 if ($analysisType['Id'] == $singleAnalysisJson['AnalysisType_ID']){
+//                    dump($singleAnalysisJson['AnalysisType_ID']);
+                     $singleAnalysis->analysis_type_id = (int)$singleAnalysisJson['AnalysisType_ID'];
+                     $singleAnalysis->save();
+                 }
+             }
+         }
+         foreach ($analysisJson as $singleAnalysisJson){
+             if ($singleAnalysisJson['Id'] == $singleAnalysis->id){
+                 $singleAnalysis->visit_number = $singleAnalysisJson['VisitNumber'];
+             }
+         }
+     }
  }

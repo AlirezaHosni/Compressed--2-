@@ -19,7 +19,8 @@ class CreateCommentsTable extends Migration
             $table->string('email')->nullable();
             $table->text('comment')->nullable();
             $table->string('active')->default(0);
-            $table->integer('article_id')->unsigned();
+            $table->integer('commentable_id')->unsigned()->nullable();
+            $table->string('commentable_type')->nullable();
             $table->timestamps();
         });
     }
