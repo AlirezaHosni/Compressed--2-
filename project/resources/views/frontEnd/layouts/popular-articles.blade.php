@@ -1,5 +1,5 @@
-<div class="col-12">
-    <h2 class="border-bottom">محبوب ترین</h2>
+<div class="col-12 bg-white">
+    <h2 class="border-bottom pb-2">محبوب ترین</h2>
     <ul>
         @foreach($papularArticles as $papularArticle)
             <li class="nav-link d-flex">

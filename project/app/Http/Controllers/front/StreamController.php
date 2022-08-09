@@ -15,7 +15,7 @@ class StreamController extends Controller
         if(!is_null($articleGroup)){
             $articles = $articles->where('article_Group_id', $articleGroup->id);
         }
-        $articleGroups = ArticleGroup::all();
+        $articleGroups = ArticleGroup::where('shortNews', 1)->get();
 
         return view('frontEnd.stream.index', compact('articles', 'articleGroups'));
     }

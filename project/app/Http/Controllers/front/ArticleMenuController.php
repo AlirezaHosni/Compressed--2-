@@ -58,7 +58,11 @@ class ArticleMenuController extends Controller
 
     public function allTahlilShow(Analysis $analysis)
     {
-        return view('frontEnd.analysis.index');
+        $analysis->visit_number = $analysis->visit_number + 1;
+        $analysis->save();
+        $comments = $analysis->comments->where('active', 1);
+
+        return view('frontEnd.analysis.show', compact('analysis', 'comments'));
     }
 
     public function authors()

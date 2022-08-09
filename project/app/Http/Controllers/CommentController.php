@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Analysis;
 use App\AnswerComment;
 use App\Comment;
 use App\Article;
@@ -30,17 +31,26 @@ class CommentController extends Controller
         return redirect()->route('comment.index');
     }
 
-    public function storeComment(Request $request, Article $article)
+    public function storeComment(Request $request, $id, $type)
     {
 
         $data=new Comment();
         $data->fullName=$request->fullName;
         $data->email=$request->email;
         $data->comment=$request->Text;
-        $data->commentable_id=$article->id;
-        $data->commentable_type=Article::class;
-        $data->save();
-        return redirect()->route('singleArticle', $article->url);
+        $data->commentable_id=$id;
+        if ($type == 0) {
+            $data->commentable_type = Article::class;
+            $data->save();
+            $article = Article::find(id);
+            return redirect()->route('singleArticle', $article->url);
+
+        }
+        elseif ($type == 1){
+            $data->commentable_type=Analysis::class;
+            $data->save();
+            return redirect()->route('alltahlil.show', $id);
+        }
     }
 
     public function show(Comment $comment)

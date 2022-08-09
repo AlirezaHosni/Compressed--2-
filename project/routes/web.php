@@ -77,7 +77,7 @@ Route::middleware('auth')->prefix('administrator')->group(function (){
     // Comment //
     Route::resource('/comment','CommentController');
     Route::get('/comment/active/{id}','CommentController@activeComment')->name('activeComment');
-    Route::post('/comment/{article}','CommentController@storeComment')->name('comment.storeComment');
+    Route::post('/comment/{id}/{type}','CommentController@storeComment')->name('comment.storeComment');
     Route::get('/answerComment/{id}','CommentController@answerComment')->name('answerComment');
 });
 
@@ -115,6 +115,9 @@ Route::get('/latest-article/{article}', 'ArticleController@latestArticle')->name
 
 // download magazine
 Route::get('/download-magazine/{magazine}', 'MagazineController@downloadMagazine')->name('downloadMagazine');
+
+// show landing
+Route::get('/show-landing/{url}', 'front\LandingController@show')->name('showLanding');
 
 
 Route::prefix('/category')->group(function (){
@@ -259,13 +262,9 @@ Route::get('/ironFx',function(){
     return 'here is ironFx route';
 })->name('ironFx');
 
-
-
-
-
-
 // footer
 Route::get('/terms',function(){
+
     $filename = "Export-2022-7-29-17-15-27.json";
 
 // Read the JSON file in PHP
@@ -273,32 +272,19 @@ Route::get('/terms',function(){
 
 // Convert the JSON String into PHP Array
     $array = json_decode($data, true);
-    $analysisJson = $array['UserAnalysis'];
-//    dd($analysisJson);
+    $success = 0;
 
-    $analysis = \App\Analysis::all();
-    foreach ($analysis as $singleAnalysis)
-    {
-//        $singleAnalysis->analysis_type_id=100;
-//        $singleAnalysis->save();
-//        $singleAnalysis->active = 1;
-//        $singleAnalysis->url = $singleAnalysis->id;
-        foreach ($analysisJson as $singleAnalysisJson) {
-            foreach ($array['AnalysisTypes'] as $analysisType) {
-                if ($analysisType['Id'] == $singleAnalysisJson['AnalysisType_ID']){
-//                    dump($singleAnalysisJson['AnalysisType_ID']);
-                    $singleAnalysis->analysis_type_id = (int)$singleAnalysisJson['AnalysisType_ID'];
-                    $singleAnalysis->save();
-                }
-            }
-        }
-        foreach ($analysisJson as $singleAnalysisJson){
-            if ($singleAnalysisJson['Id'] == $singleAnalysis->id){
-                $singleAnalysis->visit_number = $singleAnalysisJson['VisitNumber'];
+// dd($array);
+//    dd($array['Article']);
+    $articles = \App\Article::all();
+    foreach ($articles as $article){
+        foreach ($array['Article'] as $jArticle){
+            if ($article->id == $jArticle['Id']){
+                $article->visit_number = $jArticle['VisitNumber'];
+                $article->save();
             }
         }
     }
-
 })->name('terms');
 
 Route::get('/faq',function(){

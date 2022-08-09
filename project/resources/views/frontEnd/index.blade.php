@@ -205,7 +205,7 @@
                                                 </h6>
                                             </a>
                                             <p class="news-item-text">
-                                                {{ $latestArticle->summary }}
+                                                {{ !empty($latestArticle->summary) ? $latestArticle->summary : \Illuminate\Support\Str::limit(strip_tags($latestArticle->mainContent), 200) }}
                                             </p>
                                             <span class="news-item-time">{{ jalaliAgo($latestArticle->publishDate) }}</span>
                                         </div>
@@ -264,7 +264,7 @@
                                             <div class="card-body">
                                                 <a class="text-dark" href="{{ route('singleArticle', $latestArticle->url) }}" ><h5 class="card-title fs-1rem card-title-sm font-weight-bold">{{ $latestArticle->title }}</h5></a>
                                                 <p class="card-text analys-card-text">
-                                                    {{ $latestArticle->summary }}
+{{--                                                    {!! dd(\Illuminate\Support\Str::limit(trim(preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 ]/', ' ', urldecode(html_entity_decode(strip_tags($latestArticle->mainContent)))))), 200)) !!}--}}
                                                 </p>
                                                 <span class="analyse-card-time">{{ jalaliAgo($latestArticle->publishDate) }}</span>
                                             </div>
@@ -296,12 +296,23 @@
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script>
+            $(".dropdownMenuItem").mouseenter(function(){
+                $(this).children().eq(1).removeClass('d-none')
+            });
+            $(".dropdownMenuItem").mouseleave(function(){
+                self = $(this)
+                setTimeout(function () {
+                    $(self).children().eq(1).addClass('d-none')
+                }, 500);
+            });
+    </script>
+    <script>
         $(".text-search-box").css('display' , 'none');
         $("#search-icon").click(function(){
             $(".text-search-box").toggle(1000);
 
         });
-        $("#menubar-icon").click(function(){
+        $("#menubar-icon").hover(function(){
             //alert("hello");
             $(".navbar").toggle(1000);
         });

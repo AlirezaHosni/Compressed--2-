@@ -92,13 +92,12 @@ class ArticleController extends Controller
 
     public function singleArticle( $article )
     {
-        $advertise = Advertise::first();
-
-        $papularArticles = Article::limit(8)->get();
-        $article=Article::where('url', $article)->first();
+        $article = Article::where('url', $article)->first();
+        $article->visit_number = $article->visit_number + 1;
+        $article->save();
         $data=ArticleGroup::where('id','=',$article->article_Group_id)->get();
         $comments = $article->comments->where('active', 1);
-        return view('frontEnd.single', compact('data', 'article', 'papularArticles', 'advertise', 'comments'));
+        return view('frontEnd.single', compact('data', 'article', 'comments'));
     }
 
     public function show( $article )

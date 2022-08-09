@@ -1,6 +1,6 @@
 @extends('frontEnd.layouts.master')
 @section('title')
-    {{ $article->title }}
+    {{ $analysis->title }}
 @endsection
 @section('head-tag')
     <meta charset="UTF-8" />
@@ -31,22 +31,22 @@
                 <div class="col-9 p-4 ">
                     <div class="row bg-white">
                         <div class="col-12 py-3 px-5">
-                            <a href="{{ url($article->article_group->url) }}" class="bank">{{ $article->article_group->title }}</a>
+                            <span href="#" class="bank">{{ $analysis->analysis_type->title }}</span>
                         </div>
                         <div class="col-12 py-3 px-5">
-                            <h2 class="main-titr">{{ $article->title }} - {{ Carbon\Carbon::parse($article->publishDate)->format('Y M d') }}</h2>
+                            <h2 class="main-titr">{{ $analysis->title }} - {{ Carbon\Carbon::parse($analysis->publishDate)->format('Y M d') }}</h2>
                         </div>
                         <div class="col-12 row align-items-center  py-3 px-5">
-                            <div class="col-2"><img src="{{ asset($article->user->image) }}" class="img-fluid box-shadow writter-img" alt="" /></div>
+                            <div class="col-2"><img src="{{ asset($analysis->user->image) }}" class="img-fluid box-shadow writter-img" alt="" /></div>
                             <div class="col-10">
                                 <p>
-                                    <span class="text-muted font-weight-normal">نویسنده : {{ $article->user->name }}</span>
+                                    <span class="text-muted font-weight-normal">نویسنده : {{ $analysis->user->name }}</span>
                                 </p>
                                 <p>
-                                    <span class="text-muted font-weight-normal"> {{ jalaliDate($article->publishDate, '%A, %d %B') }}</span>
-                                    <span class="text-muted font-weight-normal">تعداد کلمات :  {{ count(explode(' ', strip_tags($article->mainContent))) }}</span>
+                                    <span class="text-muted font-weight-normal"> {{ jalaliDate($analysis->publishDate, '%A, %d %B') }}</span>
+                                    <span class="text-muted font-weight-normal">تعداد کلمات :  {{ count(explode(' ', strip_tags($analysis->mainContent))) }}</span>
                                     <span class="text-muted font-weight-normal"> مدت زمان مطالعه : 3 دقیقه</span>
-                                    <span class="text-muted font-weight-normal"> تعداد بازدید : {{ $article->visit_number }}</span>
+                                    <span class="text-muted font-weight-normal"> تعداد بازدید : {{ $analysis->visit_number }}</span>
                                 </p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="col-12 p-0 mt-2">
-                            <img src="{{ asset($article->image) }}" class="img-fluid main-img" alt="" />
+                            <img src="{{ asset($analysis->image) }}" class="img-fluid main-img" alt="" />
                         </div>
                         <div class="col-12 py-3 px-5 position-relative titr-empty">
                             <span class="d-inline-block position-absolute border">سرفصل</span>
@@ -73,7 +73,7 @@
 
                         </div>
                         <div class="col-12 py-3 px-5">
-                            {!! $article->mainContent !!}
+                            {!! $analysis->mainContent !!}
                         </div>
                         <div class="col-12 py-3 px-5">
                 <span class="d-block"
@@ -82,7 +82,7 @@
 
                     منبع:
 
-                    {{ $article->source }}
+                    {{ $analysis->source }}
                 </strong>
 
 
@@ -90,8 +90,8 @@
                 </span>
                             <span class="d-block">
                     برچسب ها
-                            @if(!is_null($article->tag))
-                                @foreach(explode(",", $article->tag) as $singleTag)
+                            @if(!is_null($analysis->tag))
+                                @foreach(explode(",", $analysis->tag) as $singleTag)
                                     <a href="{{ url('#') }}" class="btn-resource">{{ $singleTag }}</a>
                                 @endforeach
                             @endif
@@ -114,7 +114,7 @@
                                 <hr class="mt-0">
                             @endforeach
 
-                            <form action="{{ route('comment.storeComment', [$article->id, 0]) }}" method="post" novalidate="novalidate"><input data-val="true" data-val-required="فیلد آدرس مقاله را وارد نمایید." id="Uri" name="Uri" type="hidden" value="5058">
+                            <form action="{{ route('comment.storeComment', [$analysis->id, 1]) }}" method="post" novalidate="novalidate"><input data-val="true" data-val-required="فیلد آدرس مقاله را وارد نمایید." id="Uri" name="Uri" type="hidden" value="5058">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-md-6 my-3">

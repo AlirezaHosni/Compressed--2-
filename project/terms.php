@@ -22,7 +22,7 @@ $array = json_decode($data, true);
 $success = 0;
 
 // dd($array);
-// dd($array['UserInfo']);
+ dd($array['Article']);
 //$articleGroups = $array['ArticleGroupArticles'];
 //$tags = $array['Tag'];
 //$tagArticles = $array['TagArticles'];
@@ -204,6 +204,29 @@ foreach($array['AnalysisTypes'] as $items) {
      $array = json_decode($data, true);
      $analysisJson = $array['UserAnalysis'];
 //    dd($analysisJson);
+
+     $analysis = \App\Analysis::all();
+     foreach ($analysis as $singleAnalysis)
+     {
+//        $singleAnalysis->analysis_type_id=100;
+//        $singleAnalysis->save();
+//        $singleAnalysis->active = 1;
+//        $singleAnalysis->url = $singleAnalysis->id;
+         foreach ($analysisJson as $singleAnalysisJson) {
+             foreach ($array['AnalysisTypes'] as $analysisType) {
+                 if ($analysisType['Id'] == $singleAnalysisJson['AnalysisType_ID']){
+//                    dump($singleAnalysisJson['AnalysisType_ID']);
+                     $singleAnalysis->analysis_type_id = (int)$singleAnalysisJson['AnalysisType_ID'];
+                     $singleAnalysis->save();
+                 }
+             }
+         }
+         foreach ($analysisJson as $singleAnalysisJson){
+             if ($singleAnalysisJson['Id'] == $singleAnalysis->id){
+                 $singleAnalysis->visit_number = $singleAnalysisJson['VisitNumber'];
+             }
+         }
+     }
 
      $analysis = \App\Analysis::all();
      foreach ($analysis as $singleAnalysis)

@@ -27,6 +27,7 @@ class CreateArticlesTable extends Migration
             $table->string('image')->nullable();
             $table->text('mainContent')->nullable();
             $table->text('summary')->nullable();
+            $table->integer('visit_number')->default(0);
             $table->integer('active')->default(0);
             $table->softDeletes('deleted_at');
             $table->timestamps();
