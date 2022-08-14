@@ -105,6 +105,7 @@
                     <!-- 2 -->
                     <div class="col-sm-6 col-12 economic-items economic-order">
                         <div class="row economic-items-content p-3 economic-items-content-sm">
+                            @empty(!$financeArticles)
                             <div class="col-sm-6 col-12">
                                 <!--<figure class="analyse-active econimic-active col-12 col-sm-5 bg-white rounded p-1 d-flex w-100 justify-content-between mb-0 flex-column">-->
                                 <figure class="analyse-active econimic-active col-12 bg-white rounded p-1 d-flex w-100 justify-content-between mb-0 flex-column">
@@ -114,11 +115,12 @@
 {{--                                    </figcaption>--}}
                                 </figure>
                             </div>
+                            @endempty
                             <div class="col-sm-6 col-12">
                                 <div class="row economic-items-content flex-column p-3">
                                     @foreach($financeArticles as $financeArticle)
                                         <a class="text-dark" href="{{ route('singleArticle', $financeArticle->url) }}">
-                                            @if($financeArticle->id != $financeArticles->first()->id)
+                                            @if(empty($financeArticles) or $financeArticle->id != $financeArticles->first()->id)
                                                 <div class="economic-item border-bottom">
                                                     <p class="economic-item-text text-justify line-height-2">
                                                         {{ $financeArticle->title }}
