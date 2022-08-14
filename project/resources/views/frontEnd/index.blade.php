@@ -39,13 +39,15 @@
                 <!-- row -->
                 <div class="row analyse-content">
                     <!-- analyse active -->
+                    @empty(!$firstArticle)
                     <figure class="analyse-active col-12 col-sm-5 bg-white rounded p-1 d-flex justify-content-between mb-0 flex-column">
-                        <img src="{{ asset($firstArticle->image) }}" class="img-fluid" alt="">
+                        <img src="{{ asset($firstArticle->image ) }}" class="img-fluid" alt="">
                         <a class="text-dark" href="{{ route('singleArticle', $firstArticle->url) }}"> <h2 class="title-2">{{ $firstArticle->title }} - {{ Carbon\Carbon::parse($firstArticle->publishDate)->format('Y M d') }}</h2></a>
                         <figcaption class="analyse-active-text">
                             {{ $firstArticle->summary }}
                         </figcaption>
                     </figure>
+                    @endempty
                     <!-- analyse items -->
                     <div class="analys-items col-12 col-sm-7 rounded d-flex flex-column flex-wrap justify-content-between align-item-center p-0" >
                         <!-- 1 -->
@@ -105,7 +107,7 @@
                     <!-- 2 -->
                     <div class="col-sm-6 col-12 economic-items economic-order">
                         <div class="row economic-items-content p-3 economic-items-content-sm">
-                            @empty(!$financeArticles)
+                            @if(count($financeArticles) > 0)
                             <div class="col-sm-6 col-12">
                                 <!--<figure class="analyse-active econimic-active col-12 col-sm-5 bg-white rounded p-1 d-flex w-100 justify-content-between mb-0 flex-column">-->
                                 <figure class="analyse-active econimic-active col-12 bg-white rounded p-1 d-flex w-100 justify-content-between mb-0 flex-column">
@@ -115,7 +117,7 @@
 {{--                                    </figcaption>--}}
                                 </figure>
                             </div>
-                            @endempty
+                            @endif
                             <div class="col-sm-6 col-12">
                                 <div class="row economic-items-content flex-column p-3">
                                     @foreach($financeArticles as $financeArticle)
@@ -223,6 +225,7 @@
                         <div class="row news-content-box goals mt-5">
                             <!-- goals title -->
                             <h2 class="news-title news-title-sm">چشم اندازها</h2>
+                            @empty(!$firstForexArticle)
                             <div class="col-sm-6 col-12 forex-box">
                                 <div class="bg-white forex-news-box-sm border br-5rem">
                                     <p class="news-forex-pa-sm">{{ jalaliAgo($firstForexArticle->publishDate) }}</p>
@@ -233,8 +236,8 @@
                                         </div>
                                     </a>
                                 </div>
-
                             </div>
+                            @endempty
                             <div class="col-sm-6 col-12 content-items-box">
                                 <div class="content-items-box-sm">
                                     @foreach($forexArticles as $forexArticle)
@@ -282,11 +285,11 @@
 
                         <div class="news-ads-item-up w-75 d-flex br-5rem justify-content-center align-items-center bg-info">
                             {{--                                <h2 class="d-inline-block">تبلیغات</h2>--}}
-                            <a href="{{ url($advertise->url) }}" ><img src="{{ asset($advertise->image) }}"/></a>
+                            <a href="{{ url($advertise->url ?? '') }}" ><img src="{{ asset($advertise->image ?? '') }}"/></a>
                         </div>
                         <div class="news-ads-item-down w-75 d-flex br-5rem justify-content-center align-items-center bg-success">
                             {{--                                <h2 class="d-inline-block">تبلیغات</h2>--}}
-                            <a href="{{ url($advertise->url) }}" ><img src="{{ asset($advertise->image) }}"/></a>
+                            <a href="{{ url($advertise->url ?? '') }}" ><img src="{{ asset($advertise->image ?? '') }}"/></a>
                         </div>
                     </div>
                 </div>
