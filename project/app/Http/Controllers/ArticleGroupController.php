@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\ArticleGroup;
-use App\Menu;
 use Illuminate\Http\Request;
 
 class ArticleGroupController extends Controller
@@ -17,17 +16,16 @@ class ArticleGroupController extends Controller
 
     public function create()
     {
-        $menu=Menu::all();
-        return view('backEnd.articleGroup.create')->with(compact('menu'));
+        $articleGroups=ArticleGroup::all();
+        return view('backEnd.articleGroup.create')->with(compact('articleGroups'));
     }
 
     public function store(Request $request)
     {
-
         $articleGroup=new ArticleGroup();
         $articleGroup->title=$request->title;
         $articleGroup->url=$request->url;
-        $articleGroup->menu_id=$request->menu_id ;
+        $articleGroup->parent_id=$request->parent_id ;
         $shortNews=$request->shortNews;
         if (!empty($shortNews)){
             $articleGroup->shortNews=$shortNews;
@@ -44,9 +42,9 @@ class ArticleGroupController extends Controller
 
     public function edit( $articleGroup )
     {
-        $menu=Menu::all();
+        $articleGroups = ArticleGroup::all();
         $data=ArticleGroup::findOrFail($articleGroup);
-        return view('backEnd.articleGroup.edit')->with(compact('data','menu'));
+        return view('backEnd.articleGroup.edit')->with(compact('data','articleGroups'));
     }
 
     public function update(Request $request,$articleGroup)
@@ -55,7 +53,7 @@ class ArticleGroupController extends Controller
        $data=ArticleGroup::findOrFail($articleGroup);
        $data->title=$request->title;
        $data->url=$request->url;
-       $data->menu_id=$request->menu_id;
+       $data->parent_id=$request->parent_id;
         $shortNews=$request->shortNews;
         if (!empty($shortNews)){
             $data->shortNews=$shortNews;

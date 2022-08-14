@@ -39,7 +39,7 @@
                                                  <td>{{++$key}}</td>
                                                  <td>{{$item->title}}</td>
                                                  <td>{{$item->url}}</td>
-                                                 <td>{{implode(',',$item->menu()->get()->pluck('title')->toArray())}}</td>
+                                                 <td>{{implode(',',$item->parent()->get()->pluck('title')->toArray())}}</td>
                                                  <td class="text-center">
                                                      @if($item->shortNews === 1)
                                                          <i class="fa fa-check text-success fs-1"></i>

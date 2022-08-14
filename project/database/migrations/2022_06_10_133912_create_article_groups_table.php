@@ -17,7 +17,7 @@ class CreateArticleGroupsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
-            $table->integer('menu_id')->unsigned();
+            $table->integer('parent_id')->unsigned();
             $table->integer('shortNews')->default(0);
             $table->timestamps();
         });

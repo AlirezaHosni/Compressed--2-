@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ArticleGroup;
 use App\Menu;
 use App\SubMenu;
 use Illuminate\Http\Request;
@@ -53,6 +54,19 @@ class MenuController extends Controller
             $menu->parent_id=$request->parent_id ;
         }
         $menu->save();
+
+        $articleGroup=new ArticleGroup();
+        $articleGroup->title=$request->title;
+        $articleGroup->url=$request->url;
+        if ($menu->parent_id){
+            $articleGroupParentId = ArticleGroup::where('title', 'like', "%$menu->parent_id%")->first()->id;
+            $articleGroup->parent_id = $articleGroupParentId;
+        }
+        $shortNews=$request->shortNews;
+        if (!empty($shortNews)){
+            $articleGroup->shortNews=$shortNews;
+        }
+        $articleGroup->save();
         return redirect()->route('menus.index');
     }
 
@@ -100,6 +114,20 @@ class MenuController extends Controller
         }
         $menu->symbol=$request->symbol;
         $menu->save();
+
+        $articleGroup=ArticleGroup::where('title', 'like', "%$menu->title%")->first();
+        $articleGroup->title=$request->title;
+        $articleGroup->url=$request->url;
+        if ($menu->parent_id){
+            $articleGroupParentId = ArticleGroup::where('title', 'like', "%$menu->parent_id%")->first()->id;
+            $articleGroup->parent_id = $articleGroupParentId;
+        }
+        $shortNews=$request->shortNews;
+        if (!empty($shortNews)){
+            $articleGroup->shortNews=$shortNews;
+        }
+        $articleGroup->save();
+
         return redirect()->route('menus.index');
 
     }
@@ -113,9 +141,10 @@ class MenuController extends Controller
             unlink($path);
         }
         Menu::destroy($menu->id);
+        $articleGroup=ArticleGroup::where('title', 'like', "%$menu->title%")->first();
+        $articleGroup->delete();
+
         return redirect()->route('menus.index');
-
-
     }
     public function createMenu($id){
         $submenu=$id ;

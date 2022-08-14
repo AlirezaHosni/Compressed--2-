@@ -25,9 +25,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1" class=" my-2"> انتخاب والد</label>
-                                                <select class="form-control  select-role-search-form " name="menu_id" placeholder="ds"
+                                                <select class="form-control  select-role-search-form " name="parent_id" placeholder="ds"
                                                         style="font-size: large;" id="exampleFormControlSelect1">
-                                                    @foreach($menu as $item)
+                                                    @foreach($articleGroups as $item)
                                                         <option value="{{$item->id}}">{{$item->title}}</option>
                                                     @endforeach
                                                 </select>

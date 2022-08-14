@@ -22,7 +22,7 @@ $array = json_decode($data, true);
 $success = 0;
 
 // dd($array);
- dd($array['Article']);
+// dd($array['Article']);
 //$articleGroups = $array['ArticleGroupArticles'];
 //$tags = $array['Tag'];
 //$tagArticles = $array['TagArticles'];

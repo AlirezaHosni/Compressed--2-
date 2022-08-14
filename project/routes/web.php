@@ -275,16 +275,56 @@ Route::get('/terms',function(){
     $success = 0;
 
 // dd($array);
-//    dd($array['Article']);
-    $articles = \App\Article::all();
-    foreach ($articles as $article){
-        foreach ($array['Article'] as $jArticle){
-            if ($article->id == $jArticle['Id']){
-                $article->visit_number = $jArticle['VisitNumber'];
-                $article->save();
+    foreach($array['ArticleGroup'] as $items){
+        $create = [];
+        foreach($items as $key => $value){
+            $key_parts = explode('_', $key);
+            foreach($key_parts as $key=>$key_part){
+                $key_parts[$key] = lcfirst($key_part);
             }
+            $final_key = implode('_', $key_parts);
+            $final_key = str_replace('iD', 'id', $final_key);
+            $create[$final_key] = $value;
+            // dump($final_key);
+            $create['tag'] = '';
+            if($final_key == 'menuLinkType_id')
+                $create['article_Group_id'] = $value;
+            if($final_key == 'createdDate')
+                $create['publishDate'] = $value;
+            if($final_key == 'title2')
+                $create['titleTwo'] = $value;
+            if($final_key == 'writer_id')
+                $create['user_id'] = $value;
+            if($final_key == 'content')
+                $create['mainContent'] = $value;
+            if($final_key == 'userAccount_id')
+                $create['user_id'] = $value;
+            if($final_key == 'name')
+                $create['fullName'] = $value;
+            if($final_key == 'menuLinkType_id')
+                $create['subMenu_id'] = $value;
+            if($final_key == 'text')
+                $create['comment'] = $value;
+            if($final_key == 'isShow')
+                $create['active'] = $value;
+            if($final_key == 'fileName')
+                $create['file'] = $value;
+            if($final_key == 'imageName')
+                $create['imageFile'] = $value;
+            if($final_key == 'userName')
+                $create['name'] = $value;
+            if($final_key == 'isActive')
+                $create['active'] = $value;
+            if($final_key == 'mobileNumber')
+                $create['phone'] = $value;
+            if($final_key == 'mobileNumber')
+                $create['phoneNumber'] = $value;
+            if($final_key == 'uri')
+                $create['url'] = $value;
         }
+        App\ArticleGroup::create($create);
     }
+
 })->name('terms');
 
 Route::get('/faq',function(){
