@@ -56,7 +56,8 @@ class ArticleController extends Controller
        $article=new Article();
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        $tag=implode(',',$request->tag);
+        if($request->tag)
+            $tag=implode(',',$request->tag);
        $file=$request->file('image');
        $image=$file->getClientOriginalName();
        $path="upload/article/".$image;
@@ -121,7 +122,8 @@ class ArticleController extends Controller
         $article=Article::findOrFail($article);
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        $tag=implode(',',$request->tag);
+        if($request->tag)
+            $tag=implode(',',$request->tag);
         $file=$request->file('image');
         if (empty($file)){
             $image=$article->image;
