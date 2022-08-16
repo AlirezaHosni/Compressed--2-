@@ -31,7 +31,7 @@ class LandingController extends Controller
     {
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        $tag=implode(',',$request->tag);
+        $tag = $request->tag ? implode(',',$request->tag) : '';
         $landing=new Landing();
         // Start Upload Image Background //
         $imageBack=$request->file('imageBackground');
@@ -55,7 +55,9 @@ class LandingController extends Controller
         // End Upload ImageFile //
         $landing->title=$request->title;
         $landing->titleTwo=$request->titleTwo;
-        $landing->publishDate=$request->publishDate;
+//        $landing->publishDate=$request->publishDate;
+        $realTimestampStart = substr($request->publishDate, 0, 10);
+        $landing->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
         $landing->imageAlt=$request->imageAlt;
         $landing->url=$request->url;
         $landing->source=$request->source;
@@ -143,7 +145,9 @@ class LandingController extends Controller
         }
         $landing->title=$request->title;
         $landing->titleTwo=$request->titleTwo;
-        $landing->publishDate=$request->publishDate;
+//        $landing->publishDate=$request->publishDate;
+        $realTimestampStart = substr($request->publishDate, 0, 10);
+        $landing->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
         $landing->imageAlt=$request->imageAlt;
         $landing->url=$request->url;
         $landing->source=$request->source;

@@ -41,8 +41,7 @@
     <link href="{{asset('backEnd/datePicker/DatePicker.css')}}" rel="stylesheet" />
     <!-- SEARCH BOX css-->
     <link href="{{asset('backEnd/search/datatables.css')}}" rel="stylesheet" />
-
-
+    @yield('head-tag')
 </head>
 <body class="main-body leftmenu">
 <!-- Sidemenu -->
