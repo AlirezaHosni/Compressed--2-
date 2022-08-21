@@ -66,6 +66,7 @@ class ArticleController extends Controller
        }
        $file->move("upload/article/",$image);
        $article->image=$image;
+       if($request->tag)
         $tag=implode(',',$request->tag);
        $article->title=$request->title;
        if (!empty($request->shortNews)){

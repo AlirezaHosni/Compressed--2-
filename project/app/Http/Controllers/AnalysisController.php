@@ -31,11 +31,12 @@ class AnalysisController extends Controller
 
     public function store(Request $request)
     {
-       
+
        $analysis=new Analysis();
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        $tag=implode(',',$request->tag);
+        if($request->tag)
+            $tag=implode(',',$request->tag);
        $file=$request->file('image');
        $image=$file->getClientOriginalName();
        $path="upload/analysis/".$image;
@@ -44,7 +45,8 @@ class AnalysisController extends Controller
        }
        $file->move("upload/analysis/",$image);
        $analysis->image=$image;
-        $tag=implode(',',$request->tag);
+        if($request->tag)
+            $tag=implode(',',$request->tag);
        $analysis->title=$request->title;
        $analysis->titleTwo=$request->titleTwo;
        $analysis->publishDAte=$request->publishDate;
@@ -71,7 +73,7 @@ class AnalysisController extends Controller
         $data=ArticleGroup::where('id','=',$analysis->article_Group_id)->get();
         return view('backEnd.analysis.show')->with(compact('analysis','data'));
     }
-    
+
     public function singleAnalysis( $analysis )
     {
         $advertise = Advertise::first();
@@ -97,7 +99,8 @@ class AnalysisController extends Controller
         $analysis=Analysis::findOrFail($analysis);
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        $tag=implode(',',$request->tag);
+        if($request->tag)
+            $tag=implode(',',$request->tag);
         $file=$request->file('image');
         if (empty($file)){
             $image=$analysis->image;
@@ -143,7 +146,7 @@ class AnalysisController extends Controller
        return redirect()->route('analysis.index');
 
     }
-    
+
     public function trashAnalysis(){
         $analysis=Analysis::onlyTrashed()->get();
         if(auth()->user()->can("تحلیلگر")){
@@ -151,7 +154,7 @@ class AnalysisController extends Controller
         }
         return view('backEnd.analysis.trash')->with(compact('analysis'));
     }
-    
+
     public function trashDestroy($id){
         $analysis=Analysis::findOrFail($id);
         $image=$analysis->image;
@@ -163,7 +166,7 @@ class AnalysisController extends Controller
         Analysis::onlyTrashed()->findOrFail($id)->forceDelete();
         return redirect()->route('Trash.Analysis');
     }
-    
+
     public function trashRestore($id){
         Analysis::onlyTrashed()->findOrFail($id)->restore();
         return redirect()->route('Trash.Analysis');
@@ -176,7 +179,7 @@ class AnalysisController extends Controller
             return view('backEnd.analysis.show')->with(compact('analysis','data'));
         }
     }
-    
+
     public function Telegram($id){
 //        $analysis=Analysis::findOrFail($id);
 //       /* $telegram_id=Config::get('services.telegram_id');*/

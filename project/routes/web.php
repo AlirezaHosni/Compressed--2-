@@ -28,7 +28,7 @@ Route::resource('/user','front\UserController');
 
 Auth::routes();
 // BackEnd Route--UserManagement //
-Route::middleware('auth')->prefix('administrator')->group(function (){
+Route::middleware('auth')->prefix('/administrator')->group(function (){
     // dashboard //
     Route::get('/dashboard', 'HomeController@index')->name('home');
     // Role //
