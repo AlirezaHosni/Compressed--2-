@@ -375,115 +375,36 @@
                 <!-- col end -->
                 <div class="col-sm-12 col-lg-12 col-xl-4 mt-xl-4">
                     <div class="card custom-card card-dashboard-calendar pb-0">
-                        <label class="main-content-label mb-2 pt-1">ترجمه های اخیر </label>
-                        <span class="d-block tx-12 mb-2 text-muted">پروژه هایی که کار توسعه در حال اتمام است</span>
+                        <label class="main-content-label mb-2 pt-1">مقالات اخیر </label>
+{{--                        <span class="d-block tx-12 mb-2 text-muted">پروژه هایی که کار توسعه در حال اتمام است</span>--}}
                         <table class="table table-hover m-b-0 transcations mt-2">
                             <tbody>
-                            <tr>
+                            @php
+                                $latestArticles = \App\Article::orderBy('publishDate', 'desc')->limit(5)->get();
+                            @endphp
+                            @foreach($latestArticles as $latestArticle)
+                                <tr>
                                 <td class="wd-5p">
                                     <div class="main-img-user avatar-md">
-                                        <img alt="آواتار" class="rounded-circle ml-3" src="assets/img/users/5.jpg" />
+                                        <img alt="عکس" class="rounded-circle ml-3" src="{{ asset($latestArticle->image) }}" />
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex align-middle mr-3">
                                         <div class="d-inline-block">
-                                            <h6 class="mb-1">سوسو زدن</h6>
-                                            <p class="mb-0 tx-13 text-muted">بهبود برنامه</p>
+                                            <h6 class="mb-1">{{ \Illuminate\Support\Str::limit($latestArticle->title, 30) }}</h6>
+{{--                                            <p class="mb-0 tx-13 text-muted">بهبود برنامه</p>--}}
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-left">
                                     <div class="d-inline-block">
-                                        <h6 class="mb-2 tx-15 font-weight-semibold">45234 تومان<i class="fas fa-level-up-alt mr-2 text-success m-r-10"></i></h6>
-                                        <p class="mb-0 tx-11 text-muted">12 اسفند1399</p>
+{{--                                        <h6 class="mb-2 tx-15 font-weight-semibold">45234 تومان<i class="fas fa-level-up-alt mr-2 text-success m-r-10"></i></h6>--}}
+{{--                                        <p class="mb-0 tx-11 text-muted">{{ jalaliAgo($latestArticle->publishDate) }}</p>--}}
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="wd-5p">
-                                    <div class="main-img-user avatar-md">
-                                        <img alt="آواتار" class="rounded-circle ml-3" src="assets/img/users/6.jpg" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-middle mr-3">
-                                        <div class="d-inline-block">
-                                            <h6 class="mb-1">مسمومیت</h6>
-                                            <p class="mb-0 tx-13 text-muted">نقطه عطف</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-left">
-                                    <div class="d-inline-block">
-                                        <h6 class="mb-2 tx-15 font-weight-semibold">23452 تومان<i class="fas fa-level-down-alt mr-2 text-danger m-r-10"></i></h6>
-                                        <p class="mb-0 tx-11 text-muted">23 اسفند 1399</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="wd-5p">
-                                    <div class="main-img-user avatar-md">
-                                        <img alt="آواتار" class="rounded-circle ml-3" src="assets/img/users/7.jpg" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-middle mr-3">
-                                        <div class="d-inline-block">
-                                            <h6 class="mb-1">دیجی وات</h6>
-                                            <p class="mb-0 tx-13 text-muted">مجری فروش</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-left">
-                                    <div class="d-inline-block">
-                                        <h6 class="mb-2 tx-15 font-weight-semibold">78001 تومان<i class="fas fa-level-down-alt mr-2 text-danger m-r-10"></i></h6>
-                                        <p class="mb-0 tx-11 text-muted">4 بهمن1399</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="wd-5p">
-                                    <div class="main-img-user avatar-md">
-                                        <img alt="آواتار" class="rounded-circle ml-3" src="assets/img/users/8.jpg" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-middle mr-3">
-                                        <div class="d-inline-block">
-                                            <h6 class="mb-1">سوسو زدن</h6>
-                                            <p class="mb-0 tx-13 text-muted">نقطه عطف 2</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-left">
-                                    <div class="d-inline-block">
-                                        <h6 class="mb-2 tx-15 font-weight-semibold">37285 تومان<i class="fas fa-level-up-alt mr-2 text-success m-r-10"></i></h6>
-                                        <p class="mb-0 tx-11 text-muted">4 بهمن 1399</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="wd-5p pb-0">
-                                    <div class="main-img-user avatar-md">
-                                        <img alt="آواتار" class="rounded-circle ml-3" src="assets/img/users/4.jpg" />
-                                    </div>
-                                </td>
-                                <td class="pb-0">
-                                    <div class="d-flex align-middle mr-3">
-                                        <div class="d-inline-block">
-                                            <h6 class="mb-1">سوسو زدن</h6>
-                                            <p class="mb-0 tx-13 text-muted">بهبود برنامه</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-left pb-0">
-                                    <div class="d-inline-block">
-                                        <h6 class="mb-2 tx-15 font-weight-semibold">25341 تومان<i class="fas fa-level-down-alt mr-2 text-danger m-r-10"></i></h6>
-                                        <p class="mb-0 tx-11 text-muted">4 بهمن 1399</p>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

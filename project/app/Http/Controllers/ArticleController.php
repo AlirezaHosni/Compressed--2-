@@ -58,6 +58,8 @@ class ArticleController extends Controller
         $summary=strip_tags($request->summary);
         if($request->tag)
             $tag=implode(',',$request->tag);
+        else
+            $tag = '';
        $file=$request->file('image');
        $image=$file->getClientOriginalName();
        $path="upload/article/".$image;
@@ -68,6 +70,8 @@ class ArticleController extends Controller
        $article->image=$image;
        if($request->tag)
         $tag=implode(',',$request->tag);
+       else
+           $tag = '';
        $article->title=$request->title;
        if (!empty($request->shortNews)){
            $article->shortNews=$request->shortNews;
@@ -125,6 +129,8 @@ class ArticleController extends Controller
         $summary=strip_tags($request->summary);
         if($request->tag)
             $tag=implode(',',$request->tag);
+        else
+            $tag = '';
         $file=$request->file('image');
         if (empty($file)){
             $image=$article->image;

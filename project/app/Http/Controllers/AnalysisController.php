@@ -37,6 +37,8 @@ class AnalysisController extends Controller
         $summary=strip_tags($request->summary);
         if($request->tag)
             $tag=implode(',',$request->tag);
+        else
+            $tag = '';
        $file=$request->file('image');
        $image=$file->getClientOriginalName();
        $path="upload/analysis/".$image;
@@ -47,6 +49,8 @@ class AnalysisController extends Controller
        $analysis->image=$image;
         if($request->tag)
             $tag=implode(',',$request->tag);
+        else
+            $tag = '';
        $analysis->title=$request->title;
        $analysis->titleTwo=$request->titleTwo;
        $analysis->publishDAte=$request->publishDate;
@@ -101,6 +105,8 @@ class AnalysisController extends Controller
         $summary=strip_tags($request->summary);
         if($request->tag)
             $tag=implode(',',$request->tag);
+        else
+            $tag = '';
         $file=$request->file('image');
         if (empty($file)){
             $image=$analysis->image;
