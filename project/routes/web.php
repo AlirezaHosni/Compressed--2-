@@ -32,9 +32,9 @@ Route::middleware('auth')->prefix('/administrator')->group(function (){
     // dashboard //
     Route::get('/dashboard', 'HomeController@index')->name('home');
     // Role //
-    Route::resource('/role',RoleController::class);
+    Route::resource('/role','RoleController');
     // Permission  //
-    Route::resource('/permission',PermissionController::class);
+    Route::resource('/permission','PermissionController');
     // User Management  //
     Route::resource('/userManagement',UserManagementController::class);
     // Upload User Image //
