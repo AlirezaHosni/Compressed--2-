@@ -5,12 +5,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Article extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Notifiable;
 
-    protected $fillable = ['title', 'shortNews', 'titleTwo', 'image', 'publishDate', 'imageAlt', 'urll', 'source', 'metaDescription', 'metaKeyWords', 'user_id', 'tag', 'article_Group_id', 'image', 'mainContent', 'summary', 'active'];
+    protected $fillable = ['title', 'shortNews', 'titleTwo', 'image', 'publishDate', 'imageAlt', 'url', 'source', 'metaDescription', 'metaKeyWords', 'user_id', 'tag', 'article_Group_id', 'image', 'mainContent', 'summary', 'active'];
 
     public function article_group()
     {
