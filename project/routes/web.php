@@ -33,6 +33,8 @@ Route::middleware('auth')->prefix('/administrator')->group(function (){
     Route::get('/dashboard', 'HomeController@index')->name('home');
     // Role //
     Route::resource('/role','RoleController');
+    // Role //
+    Route::post('/ckeditor/upload','CKeditorController@upload')->name('ckeditor.upload');
     // Permission  //
     Route::resource('/permission','PermissionController');
     // User Management  //

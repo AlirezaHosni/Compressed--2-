@@ -55,7 +55,7 @@ class ArticleController extends Controller
     {
 
        $article=new Article();
-        $mainContent=strip_tags($request->mainContent);
+        $mainContent = $request->mainContent;
         $summary=strip_tags($request->summary);
         if($request->tag)
             $tag=implode(',',$request->tag);
@@ -102,7 +102,7 @@ class ArticleController extends Controller
     public function singleArticle( $article )
     {
         $article = Article::where('url', $article)->first();
-        if ($article->active == 0 or Carbon::now()->isAfter($article->publishDate))
+        if ($article->active == 0 or Carbon::now() < $article->publishDate)
             return redirect()->back();
         $article->visit_number = $article->visit_number + 1;
         $article->save();
@@ -130,7 +130,7 @@ class ArticleController extends Controller
     public function update(Request $request,$article)
     {
         $article=Article::findOrFail($article);
-        $mainContent=strip_tags($request->mainContent);
+        $mainContent=$request->mainContent;
         $summary=strip_tags($request->summary);
 //        if($request->tag)
 //            $tag=implode(',',$request->tag);

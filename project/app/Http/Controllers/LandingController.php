@@ -29,7 +29,7 @@ class LandingController extends Controller
 
     public function store(Request $request)
     {
-        $mainContent=strip_tags($request->mainContent);
+        $mainContent = $request->mainContent;
         $summary=strip_tags($request->summary);
         $tag = $request->tag ? implode(',',$request->tag) : '';
         $landing=new Landing();
@@ -96,7 +96,7 @@ class LandingController extends Controller
     public function update(Request $request,$landing)
     {
         $landing=Landing::findOrFail($landing);
-        $mainContent=strip_tags($request->mainContent);
+        $mainContent = $request->mainContent;
         $summary=strip_tags($request->summary);
         if ($request->tag !== null){
             $tag=implode(',',$request->tag);

@@ -155,8 +155,14 @@
         });
     </script>
     <script>
-        CKEDITOR.replace('editor1');
-        CKEDITOR.replace('editor2');
+        CKEDITOR.replace('editor1',{
+            filebrowserUploadUrl : "{{ route('ckeditor.upload', ["_token" => csrf_token()]) }}",
+            filebrowserUploadMethod : 'form',
+        });
+        CKEDITOR.replace('editor2', {
+            filebrowserUploadUrl : "{{ route('ckeditor.upload', ["_token" => csrf_token()]) }}",
+            filebrowserUploadMethod : 'form',
+        });
         // jalaliDatepicker.startWatch();
     </script>
     <script src="{{ asset('backEnd/jalalidatepicker/persian-date.min.js') }}"></script>

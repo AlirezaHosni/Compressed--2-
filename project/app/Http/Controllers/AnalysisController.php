@@ -33,7 +33,7 @@ class AnalysisController extends Controller
     {
 
        $analysis=new Analysis();
-        $mainContent=strip_tags($request->mainContent);
+        $mainContent = $request->mainContent;
         $summary=strip_tags($request->summary);
         if($request->tag)
             $tag=implode(',',$request->tag);
@@ -103,7 +103,7 @@ class AnalysisController extends Controller
     public function update(Request $request,$analysis)
     {
         $analysis=Analysis::findOrFail($analysis);
-        $mainContent=strip_tags($request->mainContent);
+        $mainContent=$request->mainContent;
         $summary=strip_tags($request->summary);
 //        if($request->tag)
 //            $tag=implode(',',$request->tag);
