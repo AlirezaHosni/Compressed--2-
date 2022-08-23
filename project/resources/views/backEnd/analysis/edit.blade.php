@@ -77,13 +77,12 @@
 
                                         <div class="collapse" id="collapseExample">
                                             <div class="card card-body tags-div col-12 ">
-                                                @foreach($tags as $tag)
-                                                    <button type="button"  id="LableTagCheckBox_{{$tag->id}}" value="{{$tag->id}}" onclick="SelectTag({{$tag->id}})"     class="tag-spans  py-1 px-4 mx-1 my-1 btn cyan" >{{$tag->title}}</button>
-
-                                                    <input type="hidden" id="TagCheckBox_{{$tag->id}}"   name="tag[]"  value="" class="cyan"    />
-                                                @endforeach
-
-
+                                                <div class="card card-body tags-div col-12 ">
+                                                    @foreach($tags as $tag)
+                                                        <button type="button"  id="LableTagCheckBox_{{$tag->id}}" value="{{$tag->title}}" onclick="SelectTag({{$tag->id}})" class="tag-spans  py-1 px-4 mx-1 my-1 btn @if(in_array($tag->title, explode(',', old('tag', $analysis->tag)))) active-edit @else cyan @endif">{{ $tag->title }}</button>
+                                                    @endforeach
+                                                    <input type="hidden" id="TagCheckBox"   name="tag"  value="{{ $analysis->tag }}"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -203,15 +202,19 @@
             </script>
             <script>
                 function SelectTag(id){
-                        if ($('#TagCheckBox_' + id).hasClass('cyan')){
-                           let amir = $('#LableTagCheckBox_' + id).val();
-                            $('#TagCheckBox_' + id).val(amir);
-                            $('#TagCheckBox_' + id).removeClass('cyan');
-                        }else {
-                            $('#TagCheckBox_' + id).addClass('cyan');
-                            $('#TagCheckBox_' + id).removeAttr('value');
-                        }
-               }
+                    if ($('#LableTagCheckBox_' + id).hasClass('cyan')){
+                        let value = $('#LableTagCheckBox_' + id).val();
+                        if ($('#TagCheckBox').val().indexOf(value) == -1)
+                            $('#TagCheckBox').val($('#TagCheckBox').val() + ',' + value);
+                        $('#LableTagCheckBox_' + id).removeClass('cyan');
+                    }else {
+                        valueArray = $('#TagCheckBox').val().split(',');
+                        index = valueArray.indexOf($('#LableTagCheckBox_' + id).val());
+                        valueArray.splice(index, 1);
+                        $('#TagCheckBox').val(valueArray.join(','))
+                        $('#LableTagCheckBox_' + id).addClass('cyan');
+                    }
+                }
             </script>
             <script>
                 function SelectAnalysis(id){

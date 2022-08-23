@@ -91,12 +91,9 @@
                                         <div class="collapse" id="collapseExample">
                                             <div class="card card-body tags-div col-12 ">
                                                 @foreach($tags as $tag)
-                                                    <button type="button"  id="LableTagCheckBox_{{$tag->id}}" value="{{$tag->id}}" onclick="SelectTag({{$tag->id}})"     class="tag-spans  py-1 px-4 mx-1 my-1 btn cyan" >{{$tag->title}}</button>
-
-                                                    <input type="hidden" id="TagCheckBox_{{$tag->id}}"   name="tag[]"  value="" class="cyan"    />
+                                                    <button type="button"  id="LableTagCheckBox_{{$tag->id}}" value="{{$tag->title}}" onclick="SelectTag({{$tag->id}})" class="tag-spans  py-1 px-4 mx-1 my-1 btn @if(in_array($tag->title, explode(',', old('tag', $article->tag)))) active-edit @else cyan @endif">{{ $tag->title }}</button>
                                                 @endforeach
-
-
+                                                <input type="hidden" id="TagCheckBox"   name="tag"  value="{{ $article->tag }}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -212,17 +209,18 @@
                 // jalaliDatepicker.startWatch();
             </script>
             <script>
-                function SelectArticle(id){
-                    if ($('#ArticleCheckBox').hasClass('cyan')) {
-                        let data = $('#LableArticleCheckBox_' + id).val();
-                        $('#ArticleCheckBox').val(data);
-                        $('#ArticleCheckBox').removeClass('cyan');
-
+                function SelectTag(id){
+                    if ($('#LableTagCheckBox_' + id).hasClass('cyan')){
+                        let value = $('#LableTagCheckBox_' + id).val();
+                        if ($('#TagCheckBox').val().indexOf(value) == -1)
+                            $('#TagCheckBox').val($('#TagCheckBox').val() + ',' + value);
+                        $('#LableTagCheckBox_' + id).removeClass('cyan');
                     }else {
-                        $('#ArticleCheckBox').addClass('cyan');
-                        $('#ArticleCheckBox').removeAttr('value');
-
-
+                        valueArray = $('#TagCheckBox').val().split(',');
+                        index = valueArray.indexOf($('#LableTagCheckBox_' + id).val());
+                        valueArray.splice(index, 1);
+                        $('#TagCheckBox').val(valueArray.join(','))
+                        $('#LableTagCheckBox_' + id).addClass('cyan');
                     }
                 }
             </script>
@@ -241,5 +239,18 @@
                         }
                     })
                 });
+            </script>
+            <script>
+                function SelectArticle(id){
+                    if ($('#ArticleCheckBox').hasClass('cyan')) {
+                        let data = $('#LableArticleCheckBox_' + id).val();
+                        $('#ArticleCheckBox').val(data);
+                        $('#ArticleCheckBox').removeClass('cyan');
+
+                    }else {
+                        $('#ArticleCheckBox').addClass('cyan');
+                        $('#ArticleCheckBox').removeAttr('value');
+                    }
+                }
             </script>
 @endsection

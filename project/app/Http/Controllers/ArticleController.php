@@ -129,10 +129,10 @@ class ArticleController extends Controller
         $article=Article::findOrFail($article);
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        if($request->tag)
-            $tag=implode(',',$request->tag);
-        else
-            $tag = '';
+//        if($request->tag)
+//            $tag=implode(',',$request->tag);
+//        else
+//            $tag = '';
         $file=$request->file('image');
         if (empty($file)){
             $image=$article->image;
@@ -169,7 +169,7 @@ class ArticleController extends Controller
             $article->user_id=auth()->user()->id;
         else
             $article->user_id=$request->user_id;
-        $article->tag=$tag;
+        $article->tag= ltrim($request->tag, ',');
         $article->article_Group_id=$request->article_Group_id;
         $article->mainContent=$mainContent;
         $article->summary=$summary;

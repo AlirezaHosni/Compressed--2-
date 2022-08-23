@@ -105,10 +105,10 @@ class AnalysisController extends Controller
         $analysis=Analysis::findOrFail($analysis);
         $mainContent=strip_tags($request->mainContent);
         $summary=strip_tags($request->summary);
-        if($request->tag)
-            $tag=implode(',',$request->tag);
-        else
-            $tag = '';
+//        if($request->tag)
+//            $tag=implode(',',$request->tag);
+//        else
+//            $tag = '';
         $file=$request->file('image');
         if (empty($file)){
             $image=$analysis->image;
@@ -141,7 +141,7 @@ class AnalysisController extends Controller
             $analysis->user_id=auth()->user()->id;
         else
             $analysis->user_id=$request->user_id;
-        $analysis->tag=$tag;
+        $analysis->tag= ltrim($request->tag, ',');
         $analysis->article_Group_id=$request->article_Group_id;
         $analysis->mainContent=$mainContent;
         $analysis->summary=$summary;
