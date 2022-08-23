@@ -1,6 +1,6 @@
 @extends('frontEnd.layouts.master')
 @section('title')
-    Pro Skills
+    Economician
 @endsection
 @section('head-tag')
     <meta charset="UTF-8">
@@ -16,8 +16,6 @@
     <!-- Custom Css -->
     <link rel="stylesheet" href="{{ asset('assets/css/basic.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/index-style.css') }}">
-
-
 @endsection
 @section('content')
     <!-- main  -->

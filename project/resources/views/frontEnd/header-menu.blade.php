@@ -5,7 +5,7 @@
         <!-- logo -->
         <div class="logo d-flex col-2">
             <i class="fa fa-bars menu-bar-icon" id="menubar-icon" aria-hidden="true"></i>
-            <img src="{{ asset('assets/imgs/icon/logo.png') }}" class="img-fluid" alt="">
+            <img src="{{ asset('assets/imgs/pic/logo/Economician4.png') }}" class="img-fluid" alt="">
         </div>
         <!-- search and login box -->
         <div class="search-login-box d-flex justify-content-end p-3 col-4">

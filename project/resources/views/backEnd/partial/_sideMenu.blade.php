@@ -1,7 +1,7 @@
 <div class="main-sidebar main-sidebar-sticky side-menu">
     <div class="sidemenu-logo">
         <a class="main-logo" href="index.html">
-            <img src="{{asset('backEnd/img/brand/logo.png')}}" class="we-logo" height="50px " alt="لوگو" />
+            <img src="{{asset('assets/imgs/pic/logo/Economician4.png')}}" class="we-logo" height="50px " alt="لوگو" />
         </a>
     </div>
     <div class="main-sidebar-body">
