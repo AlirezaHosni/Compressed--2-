@@ -48,7 +48,7 @@ class ArticlePublished extends Notification
 
              return TelegramMessage::create()
 
-               ->to('@ProSkillNews')
+               ->to('@economician_per')
 
              ->content($article->title.'https://proskillsnews.com'. $article->mainContent);
 

@@ -386,7 +386,7 @@
                                 <tr>
                                 <td class="wd-5p">
                                     <div class="main-img-user avatar-md">
-                                        <img alt="عکس" class="rounded-circle ml-3" src="{{ asset($latestArticle->image) }}" />
+                                        <img alt="عکس" class="rounded-circle ml-3" src="{{ asset('upload/article/' . $latestArticle->image) }}" />
                                     </div>
                                 </td>
                                 <td>

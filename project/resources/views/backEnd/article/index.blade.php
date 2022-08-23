@@ -54,9 +54,15 @@
                                                    <td>{{ \Illuminate\Support\Str::limit($item->title, 100)}}</td>
                                                    <td>{{\Hekmatinasser\Verta\Facades\Verta::instance($item->created_at)->format('Y/m/d')}}</td>
                                                    <td>{{Carbon\Carbon::create($item->publishDate)->format('Y/m/d')}}</td>
-                                                   <td><i class="fa fa-close text-danger fs-1"></i>
-                                                       <span class="label text-muted d-flex"></span>
-                                                   </td>
+                                                   @if(\Carbon\Carbon::now()->isBefore($item->publishDate))
+                                                       <td><i class="fa fa-close text-danger fs-1"></i>
+                                                           <span class="label text-muted d-flex"></span>
+                                                       </td>
+                                                       @else
+                                                       <td><i class="fa fa-check"></i>
+                                                           <span class="label text-muted d-flex"></span>
+                                                       </td>
+                                                       @endif
                                                    <td>0</td>
                                                    <td class="d-flex">
                                                        <a href="{{route('article.telegram',$item->id)}}" class="btn btn-sm btn-primary ml-2">

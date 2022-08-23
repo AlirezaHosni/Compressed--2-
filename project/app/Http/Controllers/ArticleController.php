@@ -213,7 +213,7 @@ class ArticleController extends Controller
     public function Telegram($id){
         $article=Article::findOrFail($id);
        /* $telegram_id=Config::get('services.telegram_id');*/
-        $article=Article::find(2);
+//        $article=Article::find(2);
         $article->notify(new \App\Notifications\ArticlePublished());
         return redirect()->back();
 

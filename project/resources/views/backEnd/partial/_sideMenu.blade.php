@@ -7,7 +7,7 @@
     <div class="main-sidebar-body">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.html"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">داشبورد</span></a>
+                <a class="nav-link" href="{{ route('home') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">داشبورد</span></a>
             </li>
             <li class="nav-header"><span class="nav-label">مدیریت محتوا</span></li>
 

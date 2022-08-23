@@ -25,7 +25,7 @@ class createRegisterRequest extends FormRequest
     {
         return [
             "name"=>"required|min:3|max:30|unique:users",
-            "phoneNumber"=>"required|numeric|digits:11|unique:users",
+            "phoneNumber"=>"nullable|numeric|digits:11|unique:users",
             "email"=>"required|email",
             "password"=>"required|between:5,15",
 

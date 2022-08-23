@@ -36,7 +36,7 @@ Route::middleware('auth')->prefix('/administrator')->group(function (){
     // Permission  //
     Route::resource('/permission','PermissionController');
     // User Management  //
-    Route::resource('/userManagement',UserManagementController::class);
+    Route::resource('/userManagement','UserManagementController');
     // Upload User Image //
     Route::post('/userManagement/editImage/{id}','UserManagementController@editImage')->name('editImage');
 });

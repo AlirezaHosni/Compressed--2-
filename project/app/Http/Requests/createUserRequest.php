@@ -21,7 +21,7 @@ class createUserRequest extends FormRequest
             "firstName"=>"nullable|min:3|max:30",
             "lastName"=>"nullable|min:3|max:30",
             "email"=>"required|email",
-            "phoneNumber"=>"required|numeric|digits:11",
+            "phoneNumber"=>"nullable|numeric|digits:11",
             "phone"=>"nullable|numeric",
             "nationalCode"=>["numeric","nullable",new Nationalcode],
 
