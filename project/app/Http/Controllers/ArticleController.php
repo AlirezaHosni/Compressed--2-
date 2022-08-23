@@ -8,6 +8,7 @@ use App\ArticleGroup;
 use App\Advertise;
 use App\Tag;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -101,6 +102,8 @@ class ArticleController extends Controller
     public function singleArticle( $article )
     {
         $article = Article::where('url', $article)->first();
+        if ($article->active == 0 or Carbon::now()->isAfter($article->publishDate))
+            return redirect()->back();
         $article->visit_number = $article->visit_number + 1;
         $article->save();
         $data=ArticleGroup::where('id','=',$article->article_Group_id)->get();
