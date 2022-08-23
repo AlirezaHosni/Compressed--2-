@@ -53,7 +53,8 @@
                                                    <td>{{++$key}}</td>
                                                    <td>{{ \Illuminate\Support\Str::limit($item->title, 100)}}</td>
                                                    <td>{{\Hekmatinasser\Verta\Facades\Verta::instance($item->created_at)->format('Y/m/d')}}</td>
-                                                   <td>{{Carbon\Carbon::create($item->publishDate)->format('Y/m/d')}}</td>
+                                                   <td>{{\Hekmatinasser\Verta\Facades\Verta::instance($item->publishDate)->format('Y/m/d')}}</td>
+{{--                                                   <td>{{Carbon\Carbon::create($item->publishDate)->format('Y/m/d')}}</td>--}}
                                                    @if(\Carbon\Carbon::now()->isBefore($item->publishDate))
                                                        <td><i class="fa fa-close text-danger fs-1"></i>
                                                            <span class="label text-muted d-flex"></span>

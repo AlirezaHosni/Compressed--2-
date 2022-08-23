@@ -77,7 +77,9 @@ class ArticleController extends Controller
            $article->shortNews=$request->shortNews;
        }
        $article->titleTwo=$request->titleTwo;
-       $article->publishDAte=$request->publishDate;
+//       $article->publishDAte=$request->publishDate;
+       $realTimestampStart = substr($request->publishDate, 0, 10);
+       $article->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
        $article->imageAlt=$request->imageAlt;
        $article->url=$request->url;
        $article->source=$request->source;
@@ -155,7 +157,9 @@ class ArticleController extends Controller
             $article->shortNews=$request->shortNews;
         }
         $article->titleTwo=$request->titleTwo;
-        $article->publishDAte=$request->publishDate;
+//        $article->publishDAte=$request->publishDate;
+        $realTimestampStart = substr($request->publishDate, 0, 10);
+        $article->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
         $article->imageAlt=$request->imageAlt;
         $article->url=$request->url;
         $article->source=$request->source;

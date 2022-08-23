@@ -53,7 +53,9 @@ class AnalysisController extends Controller
             $tag = '';
        $analysis->title=$request->title;
        $analysis->titleTwo=$request->titleTwo;
-       $analysis->publishDAte=$request->publishDate;
+//       $analysis->publishDAte=$request->publishDate;
+       $realTimestampStart = substr($request->publishDate, 0, 10);
+       $analysis->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
        $analysis->imageAlt=$request->imageAlt;
        $analysis->url=$request->url;
        $analysis->metaDescription=$request->metaDescription;
@@ -128,7 +130,9 @@ class AnalysisController extends Controller
 
         $analysis->title=$request->title;
         $analysis->titleTwo=$request->titleTwo;
-        $analysis->publishDAte=$request->publishDate;
+//        $analysis->publishDAte=$request->publishDate;
+        $realTimestampStart = substr($request->publishDate, 0, 10);
+        $analysis->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
         $analysis->imageAlt=$request->imageAlt;
         $analysis->url=$request->url;
         $analysis->metaDescription=$request->metaDescription;

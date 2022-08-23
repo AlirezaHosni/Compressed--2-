@@ -47,7 +47,9 @@ class MagazineController extends Controller
         $magazine->file=$documentFile;
         $magazine->title=$request->title;
         $magazine->contentTitle=$contentTitle;
-        $magazine->publishDate=$request->publishDate;
+//        $magazine->publishDate=$request->publishDate;
+        $realTimestampStart = substr($request->publishDate, 0, 10);
+        $magazine->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
         $magazine->save();
         return redirect()->route('magazine.index');
 
@@ -126,7 +128,9 @@ class MagazineController extends Controller
             $magazine->file=$documentFile;
         }
         $magazine->title=$request->title;
-        $magazine->publishDate=$request->publishDate;
+//        $magazine->publishDate=$request->publishDate;
+        $realTimestampStart = substr($request->publishDate, 0, 10);
+        $magazine->publishDate = date("Y-m-d H:i:s", (int)$realTimestampStart);
         $magazine->contentTitle=$contentTitle;
         $magazine->save();
         session()->flash('update','ویرایش مجله شما با موفقیت انجام شد ');

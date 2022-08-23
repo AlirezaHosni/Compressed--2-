@@ -1,4 +1,7 @@
 @extends('backEnd.layouts.master')
+@section('head-tag')
+    <link rel="stylesheet" href="{{ asset('backEnd/jalalidatepicker/persian-datepicker.min.css') }}">
+@endsection
 @section('master')
     <!-- Main Content-->
     <div class="main-content side-content pt-0 create-article-row">
@@ -28,7 +31,9 @@
                                         <div class="col-xl-6 col-md-6">
                                             <div class="form-group">
                                                 <div class="form-group">
-                                                    <input class="form-control" name="publishDate" placeholder="تاریخ انتشار" type="text" data-jdp />
+{{--                                                    <input class="form-control" name="publishDate" placeholder="تاریخ انتشار" type="text" data-jdp />--}}
+                                                    <input type="text" name="publishDate" id="publishDate" class="form-control form-control-sm d-none">
+                                                    <input type="text" id="publishDate_view" class="form-control form-control-sm">
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +87,23 @@
         <!-- End Main Content-->
 @endsection
 @section('js')
+{{--            <script>--}}
+{{--                    jalaliDatepicker.startWatch();--}}
+{{--            </script>--}}
+            <script src="{{ asset('backEnd/jalalidatepicker/persian-date.min.js') }}"></script>
+            <script src="{{ asset('backEnd/jalalidatepicker/persian-datepicker.min.js') }}"></script>
             <script>
-                    jalaliDatepicker.startWatch();
+                $(document).ready(function() {
+                    $('#publishDate_view').persianDatepicker({
+                        format: 'YYYY/MM/DD',
+                        altField: '#publishDate',
+                        timePicker: {
+                            enabled: true,
+                            meridiem: {
+                                enabled: true
+                            }
+                        }
+                    })
+                });
             </script>
 @endsection
