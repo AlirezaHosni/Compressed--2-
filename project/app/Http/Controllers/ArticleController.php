@@ -214,17 +214,23 @@ class ArticleController extends Controller
             return view('backEnd.article.show')->with(compact('article','data'));
         }
     }
+
     public function Telegram($id){
         $article=Article::findOrFail($id);
        /* $telegram_id=Config::get('services.telegram_id');*/
 //        $article=Article::find(2);
         $article->notify(new \App\Notifications\ArticlePublished());
         return redirect()->back();
+    }
 
+    public function changeActiveStatus(Article $article)
+    {
+        if ($article->active == 0)
+            $article->active = 1;
+        elseif ($article->active == 1)
+            $article->active = 0;
+        $article->save();
 
-
-
-
-
+        return redirect()->route('article.index');
     }
 }

@@ -42,7 +42,7 @@
 
                                             <th class="wd-lg-20p"><span>تاریخ درج</span></th>
                                             <th class="wd-lg-20p"><span>تاریخ انتشار</span></th>
-                                            <th class="wd-lg-20p"><span>وضعیت انتشار</span></th>
+                                            <th class="wd-lg-20p"><span>وضعیت فعال بودن</span></th>
                                             <th class="wd-lg-20p"><span>تعداد بازدید</span></th>
                                             <th class="wd-lg-20p text-center">عمل</th>
                                         </tr>
@@ -55,17 +55,24 @@
                                                    <td>{{\Hekmatinasser\Verta\Facades\Verta::instance($item->created_at)->format('Y/m/d')}}</td>
                                                    <td>{{\Hekmatinasser\Verta\Facades\Verta::instance($item->publishDate)->format('Y/m/d')}}</td>
 {{--                                                   <td>{{Carbon\Carbon::create($item->publishDate)->format('Y/m/d')}}</td>--}}
-                                                   @if(\Carbon\Carbon::now()->isBefore($item->publishDate))
+                                                   @if($item->active == 0)
                                                        <td><i class="fa fa-close text-danger fs-1"></i>
                                                            <span class="label text-muted d-flex"></span>
                                                        </td>
-                                                       @else
+                                                   @else
                                                        <td><i class="fa fa-check"></i>
                                                            <span class="label text-muted d-flex"></span>
                                                        </td>
-                                                       @endif
-                                                   <td>0</td>
+                                                   @endif
+                                                   <td>{{ $item->visit_number }}</td>
                                                    <td class="d-flex">
+                                                       <a href="{{route('article.changeActiveStatus', $item->id)}}" class="btn btn-sm btn-primary ml-2" title="تغییر وضعیت انتشار">
+                                                           @if($item->active == 1)
+                                                               <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                           @else
+                                                               <i class="fa fa-eye" aria-hidden="true"></i>
+                                                           @endif
+                                                       </a>
                                                        <a href="{{route('article.telegram',$item->id)}}" class="btn btn-sm btn-primary ml-2">
                                                            <i class="fe fe-send"></i>
                                                        </a>

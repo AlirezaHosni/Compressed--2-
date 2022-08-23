@@ -54,6 +54,7 @@ Route::middleware('auth')->prefix('administrator')->group(function (){
     Route::resource('/tags','TagController');
     // Article //
     Route::resource('/article','ArticleController');
+    Route::get('/article/change-active-status/{article}', 'ArticleController@changeActiveStatus')->name('article.changeActiveStatus');
     Route::get('/article/Details/{url}','ArticleController@Details')->name('article.details');
     Route::get('/telegram/{id}','ArticleController@Telegram')->name('article.telegram');
     // Soft Delete Article //
