@@ -27,6 +27,7 @@
                                                 <label for="exampleFormControlSelect1" class=" my-2"> انتخاب والد</label>
                                                 <select class="form-control  select-role-search-form " name="parent_id" placeholder="ds"
                                                         style="font-size: large;" id="exampleFormControlSelect1">
+                                                    <option value="">بدون والد</option>
                                                     @foreach($articleGroups as $item)
                                                         <option value="{{$item->id}}">{{$item->title}}</option>
                                                     @endforeach

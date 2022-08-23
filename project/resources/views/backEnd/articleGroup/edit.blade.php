@@ -29,8 +29,9 @@
                                                 <label for="exampleFormControlSelect1" class=" my-2"> عنوان والد</label>
                                                 <select class="form-control  select-role-search-form " name="parent_id" placeholder="ds"
                                                         style="font-size: large;" id="exampleFormControlSelect1">
+                                                    <option value="">بدون والد</option>
                                                     @foreach($articleGroups as $item)
-                                                        <option value="{{$item->id}}">{{$item->title}}</option>
+                                                        <option value="{{$item->id}}" @if($item->id == old('parent_id', $data->parent_id)) selected @endif>{{$item->title}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

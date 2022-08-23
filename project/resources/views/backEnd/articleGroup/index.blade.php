@@ -41,10 +41,10 @@
                                                  <td>{{$item->url}}</td>
                                                  <td>{{implode(',',$item->parent()->get()->pluck('title')->toArray())}}</td>
                                                  <td class="text-center">
-                                                     @if($item->shortNews === 1)
+                                                     @if($item->shortNews == 1)
                                                          <i class="fa fa-check text-success fs-1"></i>
-                                                         <span class="label text-muted d-flex"></span>
-                                                     @elseif($item->shortNews === 0)
+                                                         <span class="label text-muted d-flex"> </span>
+                                                     @elseif($item->shortNews == 0)
                                                          <i class="fa fa-close text-danger fs-1"></i>
                                                          <span class="label text-muted d-flex"></span>
                                                      @endif
