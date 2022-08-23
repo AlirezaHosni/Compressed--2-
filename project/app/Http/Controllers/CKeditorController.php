@@ -34,22 +34,25 @@ class CKeditorController extends Controller
      */
     public function upload(Request $request)
     {
-        if ($request->hasFile('upload')){
-            $originName = $request->file('upload')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . "_" . time() . "." . $extension;
+            $file=$request->file('upload');
+            if (empty($file)){
+                dd('jasdfg');
+            }else{
+                $image=$file->getClientOriginalName();
+                $path="upload/article/".$image ;
+                if (file_exists($path)){
+                    $image=bin2hex(random_bytes(5)).$image ;
+                }
+                $file->move("upload/article/",$image);
 
-            $request->file('upload')->move(public_path('images'), $fileName);
+                $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+                $url = asset("upload/article/" . $image);
+                $msg = "image uploaded successfully";
+                $response = "<script>window.parent.CKEDITOR.tools.callFunction('$CKEditorFuncNum', '$url', '$msg')</script>";
 
-            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset("images/" . $fileName);
-            $msg = "image uploaded successfully";
-            $response = "<script>window.parent.CKEDITOR.tools.callFunction('$CKEditorFuncNum', '$url', '$msg')</script>";
-
-            @header('Content-type: text/html; charset-utf-8');
-            echo $response;
-        }
+                @header('Content-type: text/html; charset-utf-8');
+                echo $response;
+            }
     }
 
     /**
