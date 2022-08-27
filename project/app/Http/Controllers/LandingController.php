@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ArticleGroup;
 use App\Landing;
+use App\Notifications\LandingPublished;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
@@ -196,5 +197,23 @@ class LandingController extends Controller
         Landing::onlyTrashed()->findOrFail($id)->restore();
         return redirect()->route('trashLanding');
 
+    }
+
+    public function telegram(Landing $landing){
+
+        $landing->notify(new LandingPublished());
+
+        return redirect()->back();
+    }
+
+    public function changeActiveStatus(Landing $landing)
+    {
+        if ($landing->active == 0)
+            $landing->active = 1;
+        elseif ($landing->active == 1)
+            $landing->active = 0;
+        $landing->save();
+
+        return redirect()->route('landing.index');
     }
 }

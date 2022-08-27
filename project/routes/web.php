@@ -67,6 +67,8 @@ Route::middleware('auth')->prefix('administrator')->group(function (){
     Route::resource('/magazine','MagazineController');
     // Start Landing //
     Route::resource('landing','LandingController');
+    Route::get('/landing/change-active-status/{landing}', 'LandingController@changeActiveStatus')->name('landing.changeActiveStatus');
+    Route::get('/landing/atelegram/{landing}','LandingController@telegram')->name('landing.telegram');
     Route::get('/trashLanding','LandingController@trashLanding')->name('trashLanding');
     Route::delete('/destroyLanding/{id}','LandingController@destroyLanding')->name('destroyLanding');
     Route::post('/restoreLanding/{id}','LandingController@restoreLanding')->name('restoreLanding');

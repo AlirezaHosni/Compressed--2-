@@ -2,22 +2,15 @@
 
 namespace App\Notifications;
 
-use http\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Config;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
-use Illuminate\Http\Client\Request;
-use GuzzleHttp\Client as GuzzleClient;;
 
-
-use Illuminate\Notifications\Notifiable;
-
-class ArticlePublished extends Notification
+class LandingPublished extends Notification
 {
     use Queueable;
 
@@ -42,29 +35,39 @@ class ArticlePublished extends Notification
         return [TelegramChannel::class];
     }
 
-    public function toTelegram($article)
+    public function toTelegram($landing)
 
     {
-           $telegram_id=Config::get('services.telegram_id');
+        $telegram_id = Config::get('services.telegram_id');
 
-             return TelegramMessage::create()
+        return TelegramMessage::create()
 
-               ->to('@economician_per')
+            ->to('@economician_per')
 
-             ->content($article->title.'http://per.economician.com'. $article->mainContent);
+            ->content($landing->title.'http://per.economician.com'. $landing->mainContent);
 
     }
 
-
-    /*public function toMail($notifiable)
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
-    }*/
+    }
 
-
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function toArray($notifiable)
     {
         return [
